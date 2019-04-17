@@ -48,7 +48,8 @@
     "variables": {
         "webtests_name": "[concat('WebTest-', toLower(parameters('health_page_name')))]",
         "alertrules_name": "[concat('AlertRules-', toLower(parameters('health_page_name')))]",
-        "queryrules_name": "[concat('QueryRules-', toLower(parameters('health_page_name')))]"
+        "queryrules_name": "[concat('QueryRules-', toLower(parameters('health_page_name')))]",
+        "email_subject": "[contact(parameters('health_page_name')), 'Validation Rule Error']"
     },
     "resources": [
         {
@@ -144,8 +145,8 @@
                     "odata.type": "Microsoft.WindowsAzure.Management.Monitoring.Alerts.Models.Microsoft.AppInsights.Nexus.DataContracts.Resources.ScheduledQueryRules.AlertingAction",
                     "severity": "[parameters('queryRule')[0].severity]",
                     "aznsAction":{
-                        "actionGroup":"[array(parameters('actionGroup'))]",
-                        "emailSubject":"emailSubject"
+                        "actionGroup": "[array(parameters('actionGroup'))]",
+                        "emailSubject": "[variables('email_subject')]"
                     },
                     "trigger":{
                         "thresholdOperator": "GreaterThan",

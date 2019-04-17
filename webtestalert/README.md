@@ -9,7 +9,7 @@ Two requirements for the test to pass are:
 
 The test fill fail and trigger an alert if either of these conditions is not met. 
 
-Required input: 
+## Required input: 
 
 ```json
 "app_ins_name": {
@@ -48,4 +48,13 @@ Required input:
 ```
 
 `actionGroup`   : 	https://docs.microsoft.com/en-us/azure/azure-monitor/platform/action-groups
+
+## Default settings
+Ping test locations     : UK South, UK West
+
+Page Http Status Code   : 200 OK
+
+Log Analytics Query     : `availabilityResults\n| where message contains \"Validation Rule Error\"\n`
+
+Severity                : 0 (Highest)
 

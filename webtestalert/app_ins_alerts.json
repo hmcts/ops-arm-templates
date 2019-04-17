@@ -45,10 +45,9 @@
 		}
 	},
 	"variables": {
-		"random": "Math.ceil(Math.random() * 10000)",
 		"webtests_name": "[concat('WebTest-', toLower(parameters('health_page_name')))]",
 		"alertrules_name": "[concat('AlertRules-', toLower(parameters('health_page_name')))]",
-		"queryrules_name": "[concat('QueryRules-', toLower(parameters('health_page_name')), variables('random'))]",
+		"queryrules_name": "[concat('QueryRules-', toLower(parameters('health_page_name')))]",
 		"email_subject": "[concat('Validation Rule Error for ', parameters('health_page_name'))]"
 	},
 	"resources": [{

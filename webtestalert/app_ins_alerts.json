@@ -97,7 +97,7 @@
             "properties": {
                 "name": "[variables('alertrules_name')]",
                 "description": "",
-                "isEnabled": true,
+                "enabled": true,
                 "condition": {
                     "odata.type": "Microsoft.Azure.Management.Insights.Models.LocationThresholdRuleCondition",
                     "dataSource": {

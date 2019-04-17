@@ -49,7 +49,7 @@
         "webtests_name": "[concat('WebTest-', toLower(parameters('health_page_name')))]",
         "alertrules_name": "[concat('AlertRules-', toLower(parameters('health_page_name')))]",
         "queryrules_name": "[concat('QueryRules-', toLower(parameters('health_page_name')))]",
-        "email_subject": "[contact(parameters('health_page_name')), 'Validation Rule Error']"
+        "email_subject": "[contact('Validation Rule Error for ', parameters('health_page_name'))]"
     },
     "resources": [
         {

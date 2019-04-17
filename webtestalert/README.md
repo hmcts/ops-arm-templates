@@ -1,5 +1,5 @@
 # Web Test to monitor page status. 
-[![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2Fhmcts%2Frdo-arm-templates%2Fblob%2Fmaster%2Fwebtestalert%2Fapp_ins_alerts.json)
+[![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%253A%252F%252Fraw.githubusercontent.com%252Fhmcts%252Frdo-arm-templates%252Fmaster%252Fwebtestalert%252Fapp_ins_alerts.json)
 
 Ping test to monitor url availability. 
 

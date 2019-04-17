@@ -1,3 +1,4 @@
+[![Build Status](https://dev.azure.com/HMCTS-DEVOPS/reform-devops/_apis/build/status/hmcts.rdo-arm-templates?branchName=master)](https://dev.azure.com/HMCTS-DEVOPS/reform-devops/_build/latest?definitionId=32&branchName=master)
 # Web Test to monitor page status. 
 [![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fhmcts%2Frdo-arm-templates%2Fmaster%2Fwebtestalert%2Fapp_ins_alerts.json)
 

@@ -1,0 +1,37 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "app_ins_name": {
+            "value": "rdo-temp-statuspage-ai"
+        },
+        "health_page": {
+            "value": [
+                {
+                "name": "statuspage",
+                "guid": "[newGuid()]",
+                "url": "https://payments.statuspage.io/api/v2/status.json",
+                "findText": "All Systems Operational",
+                "locations": [
+                    { "Id": "emea-ru-msa-edge" },
+                    { "Id": "emea-se-sto-edge" }
+                    ]
+                }
+            ]
+        },
+        "queryRule":{
+            "value": [
+                {
+                "name": "Statuspage validation error",
+                "description": "Search query not found in availability test.",
+                "query": "availabilityResults\n| where message contains \"Validation Rule Error\"\n",
+                "severity": 0,
+                "actionGroup": "/subscriptions/bf308a5c-0624-4334-8ff8-8dca9fd43783/resourceGroups/Default-ActivityLogAlerts/providers/microsoft.insights/actionGroups/rdo-kara-test"
+                }
+            ]
+        },
+        "location": {
+            "value": "[resourceGroup().location]"
+        }
+    }
+}

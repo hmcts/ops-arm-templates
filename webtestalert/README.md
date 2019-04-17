@@ -10,6 +10,8 @@ Requirements for the test to pass are:
 The test will fail and trigger an alert if either of these conditions is not met. 
 
 ## Required input: 
+To be provided after clicking `Deploy to Azure`
+
 
 ```json
 "app_ins_name": {

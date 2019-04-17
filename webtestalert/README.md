@@ -1,11 +1,11 @@
 # webtestalert
 [![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2Fhmcts%2Frdo-arm-templates%2Fblob%2Fmaster%2Fwebtestalert%2Fapp_ins_alerts.json)
 
-## This test will monitor page status. 
+## Web Test to monitor page status. 
 
 Two requirements for the test to pass are: 
 * monitored page has to return 200 OK! (default setting)
-* monitored page has to return custom query, ie. "All Systems Operational"
+* monitored page body has to return custom query, ie. "All Systems Operational"
 
 The test fill fail and trigger an alert if either of these conditions is not met. 
 

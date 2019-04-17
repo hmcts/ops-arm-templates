@@ -18,6 +18,6 @@ jobs:
       action: 'Create Or Update Resource Group'
       resourceGroupName: 'rdo-perftest-poc'
       location: 'UK South'
-      csmFile: 'app_ins_alerts.json'
-      csmParametersFile: 'app_ins_alerts.parameters.json'
+      csmFile: 'webtestalert/app_ins_alerts.json'
+      csmParametersFile: 'webtestalert/app_ins_alerts.parameters.json'
       deploymentMode: Incremental

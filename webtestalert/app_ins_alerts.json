@@ -48,7 +48,7 @@
     "variables": {
         "webtests_name": "[concat('WebTest-', toLower(parameters('health_page_name')))]",
         "alertrules_name": "[concat('AlertRules-', toLower(parameters('health_page_name')))]",
-        "queryrules_name": "[concat('QueryRules-', toLower(parameters('health_page_name')))]",
+        "queryrules_name": "[concat('QueryRules-', toLower(parameters('health_page_name')), '- Math.ceil(Math.random() * 100))]",
         "email_subject": "[concat('Validation Rule Error for ', parameters('health_page_name'))]"
     },
     "resources": [

@@ -3,13 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "app_ins_name": {
-            "value": "rdo-payments-statuspage-ai"
+            "value": "rdo-status-notifications-ai"
         },
         "health_page_name": {
-            "value": "payments-statuspage"
+            "value": "status-notifications"
         },
         "health_page_url": {
-            "value": "https://payments.statuspage.io/api/v2/status.json"
+            "value": "https://status.notifications.service.gov.uk/api/v2/status.json"
         },
         "health_page_text": {
             "value": "All Systems Operational"

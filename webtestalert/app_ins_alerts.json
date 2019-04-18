@@ -4,7 +4,8 @@
 	"parameters": {
 		"app_ins_name": {
 			"type": "string"
-		},
+            		"value": "rdo-webmonitoring-ai"
+       		},
 		"health_page_name": {
 			"type": "string"
 		},

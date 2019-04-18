@@ -48,8 +48,8 @@
 		"webtests_name": "[concat('WebTest-', toLower(parameters('health_page_name')))]",
 		"alertrules_name": "[concat('AlertRules-', toLower(parameters('health_page_name')))]",
 		"queryrules_name": "[concat('QueryRules-', toLower(parameters('health_page_name')))]",
-		"email_subject": "[concat('Validation Rule Error for ', parameters('health_page_name'))]"
-		"query": "availabilityResults\n| where message contains \"Validation Rule Error\" and name == \"',(parameters('health_page_name')),'\"\n"',
+		"email_subject": "[concat('Validation Rule Error for ', parameters('health_page_name'))]",
+		"query": "[concat('availabilityResults\n| where message contains \"Validation Rule Error\" and name == \"',(parameters('health_page_name')),'\"\n"')]
 	},
 	"resources": [{
 			"type": "Microsoft.Insights/components",

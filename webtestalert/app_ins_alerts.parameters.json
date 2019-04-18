@@ -2,11 +2,14 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "app_ins_name": {
+            "value": "rdo-payments-statuspage-ai"
+        },
         "health_page_name": {
-            "value": "notifications-service-gov-uk"
+            "value": "payments-statuspage"
         },
         "health_page_url": {
-            "value": "https://status.notifications.service.gov.uk/api/v2/status.json"
+            "value": "https://payments.statuspage.io/api/v2/status.json"
         },
         "health_page_text": {
             "value": "All Systems Operational"

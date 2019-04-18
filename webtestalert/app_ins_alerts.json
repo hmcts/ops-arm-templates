@@ -36,7 +36,6 @@
 			"defaultValue": [{
 				"name": "Page validation error",
 				"description": "Search query not found in availability test.",
-				"query": "availabilityResults\n| where message contains \"Validation Rule Error\"\n",
 				"severity": 0
 			}]
 		},
@@ -50,6 +49,7 @@
 		"alertrules_name": "[concat('AlertRules-', toLower(parameters('health_page_name')))]",
 		"queryrules_name": "[concat('QueryRules-', toLower(parameters('health_page_name')))]",
 		"email_subject": "[concat('Validation Rule Error for ', parameters('health_page_name'))]"
+		"query": "availabilityResults\n| where message contains \"Validation Rule Error\" and name == \"',(parameters('health_page_name')),'\"\n"',
 	},
 	"resources": [{
 			"type": "Microsoft.Insights/components",

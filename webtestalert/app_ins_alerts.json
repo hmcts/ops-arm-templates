@@ -3,8 +3,9 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"app_ins_name": {
-			"type": "string"
-		},
+			"type": "string",
+            		"defaultValue": "rdo-webmon-ai"
+       		},
 		"health_page_name": {
 			"type": "string"
 		},

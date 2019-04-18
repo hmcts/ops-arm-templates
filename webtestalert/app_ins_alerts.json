@@ -3,9 +3,8 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"app_ins_name": {
-			"type": "string",
-            		"defaultValue": "rdo-webmon-ai"
-       		},
+			"type": "string"
+		},
 		"health_page_name": {
 			"type": "string"
 		},
@@ -36,6 +35,7 @@
 			"defaultValue": [{
 				"name": "Page validation error",
 				"description": "Search query not found in availability test.",
+				"query": "availabilityResults\n| where message contains \"Validation Rule Error\"\n",
 				"severity": 0
 			}]
 		},
@@ -48,8 +48,7 @@
 		"webtests_name": "[concat('WebTest-', toLower(parameters('health_page_name')))]",
 		"alertrules_name": "[concat('AlertRules-', toLower(parameters('health_page_name')))]",
 		"queryrules_name": "[concat('QueryRules-', toLower(parameters('health_page_name')))]",
-		"email_subject": "[concat('Validation Rule Error for ', parameters('health_page_name'))]",
-		"query": "[concat('availabilityResults\n| where message contains \"Validation Rule Error\" and name == \"',(parameters('health_page_name')),'\"\n"')]
+		"email_subject": "[concat('Validation Rule Error for ', parameters('health_page_name'))]"
 	},
 	"resources": [{
 			"type": "Microsoft.Insights/components",

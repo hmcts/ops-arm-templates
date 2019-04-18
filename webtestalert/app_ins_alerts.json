@@ -3,7 +3,7 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"app_ins_name": {
-			"type": "string"
+			"type": "string",
             		"value": "rdo-webmonitoring-ai"
        		},
 		"health_page_name": {

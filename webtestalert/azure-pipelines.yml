@@ -16,7 +16,7 @@ jobs:
     inputs:
       ConnectedServiceName: 'DCD-CFT-Sandbox'
       action: 'Create Or Update Resource Group'
-      resourceGroupName: 'rdo-webmonitoring'
+      resourceGroupName: 'rdo-webmon-rg'
       location: 'UK South'
       csmFile: 'webtestalert/app_ins_alerts.json'
       csmParametersFile: 'webtestalert/app_ins_alerts.parameters.json'

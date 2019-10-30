@@ -109,7 +109,7 @@ New-AzDeployment `
   -rgTag_ManagedBy DevOps `
   -rgTag_SolutionOwner DTS `
   -rgTag_ActivityName "Cloud Management" `
-  -rgTag_DataClassification low `
+  -rgTag_DataClassification internal `
   -rgTag_CostCentre 10245117 `
   -rgTag_Environment sandbox `
   -rgTag_Criticality low

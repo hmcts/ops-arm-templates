@@ -103,7 +103,7 @@ Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
 New-AzDeployment `
   -Name example-deployment `
   -Location uksouth `
-  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/resource-groups/template.json `
+  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/resource-group/template.json `
   -rgName example-resource-group `
   -rgLocation uksouth `
   -rgTag_ManagedBy DevOps `

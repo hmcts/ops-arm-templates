@@ -1,14 +1,12 @@
 # Resource Group ARM Template
 
 Basic ARM template that will help to enforce compliance with the programme
-governance.
+governance for application insight components.
 
 ## Parameters
 
 The following sections detail the ARM template parameters and how they should
 be used when executing the template.
-
-aiLocation
 
 ### aiName
 

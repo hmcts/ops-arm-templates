@@ -1,0 +1,38 @@
+trigger: none
+pr:
+- master
+
+stages:
+  - stage: Test_ARM_Templates
+    displayName: Testing ARM Templates
+    jobs:
+    - job: PerformInvokePester
+      displayName: Invoke Pester Tests
+      pool:
+        vmImage: 'windows-2019'
+      steps:
+      - powershell: |
+          Install-Module `
+            -Name Pester `
+            -Scope CurrentUser `
+            -Force
+          Import-Module `
+            -Name Pester `
+            -Force `
+            -MinimumVersion 4.6.0
+        displayName: Install Pester Module
+      - powershell: |
+          Import-Module `
+            -Name Pester `
+            -Force `
+            -MinimumVersion 4.6.0
+          Invoke-Pester `
+            -OutputFile $(System.DefaultWorkingDirectory)\Test-Pester.XML `
+            -OutputFormat NUnitXML
+        displayName: Run Pester Tests
+      - task: PublishTestResults@2
+        inputs:
+          testResultsFormat: 'NUnit'
+          testResultsFiles: '**/Test-*.XML'
+          testRunTitle: 'PowerShell Test Results (Build: $(Build.BuildId))'
+        displayName: Publish Pester Test Results

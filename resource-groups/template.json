@@ -1,0 +1,114 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "rgName": {
+            "type": "string"
+        },
+        "rgLocation": {
+            "allowedValues": [
+                "uksouth",
+                "ukwest"
+            ],
+            "defaultValue": "UK South",
+            "type": "string"
+        },
+        "rgTag_ManagedBy": {
+            "allowedValues": [
+                "DevOps"
+            ],
+            "type": "string"
+        },
+        "rgTag_SolutionOwner": {
+            "allowedValues": [
+                "DTS"
+            ],
+            "type": "string"
+        },
+        "rgTag_ActivityName": {
+            "allowedValues": [
+                "Cloud Management"
+            ],
+            "type": "string"
+        },
+        "rgTag_DataClassification": {
+            "allowedValues": [
+                "internal",
+                "public",
+                "secret"
+            ],
+            "type": "string"
+        },
+        "rgTag_Automation": {
+            "defaultValue": "{}",
+            "type": "string"
+        },
+        "rgTag_CostCentre": {
+            "allowedValues": [
+                "10245117"
+            ],
+            "type": "string"
+        },
+        "rgTag_Environment": {
+            "allowedValues": [
+                "sandbox",
+                "development",
+                "testing",
+                "ithc",
+                "production",
+                "staging",
+                "demo",
+                "management"
+            ],
+            "type": "string"
+        },
+        "rgTag_Criticality": {
+            "allowedValues": [
+                "low",
+                "medium",
+                "high"
+            ],
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "functions": [
+        {
+            "namespace": "hmcts",
+            "members": {
+                "getRgName": {
+                    "parameters": [
+                        {
+                            "name": "originName",
+                            "type": "string"
+                        }
+                    ],
+                    "output": {
+                        "type": "string",
+                        "value": "[if(endsWith(parameters('originName'), '-rg'), parameters('originName'), concat(parameters('originName'),'-rg'))]"
+                    }
+                }
+            }
+        }
+    ],
+    "resources": [
+        {
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2018-05-01",
+            "location": "[parameters('rgLocation')]",
+            "name": "[hmcts.getRgName(parameters('rgName'))]",
+            "properties": {},
+            "tags": {
+                "managedBy": "[parameters('rgTag_ManagedBy')]",
+                "solutionOwner": "[parameters('rgTag_SolutionOwner')]",
+                "activityName": "[parameters('rgTag_ActivityName')]",
+                "dataClassification": "[parameters('rgTag_DataClassification')]",
+                "automation": "[parameters('rgTag_Automation')]",
+                "costCentre": "[parameters('rgTag_CostCentre')]",
+                "environment": "[parameters('rgTag_Environment')]",
+                "criticality": "[parameters('rgTag_Criticality')]"
+            }
+        }
+    ],
+    "outputs": {}
+}

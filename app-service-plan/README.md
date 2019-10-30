@@ -165,7 +165,7 @@ The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
 New-AzResourceGroupDeployment `
   -Name example-deployment `
-  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/app-service-plans/template.json `
+  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/app-service-plan/template.json `
   -ResourceGroupName "example-resource-group-rg" `
   -aspName example-app-service-plan `
   -aspLocation uksouth `

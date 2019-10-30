@@ -1,0 +1,121 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "aiName": {
+            "type": "string"
+        },
+        "aiLocation": {
+            "allowedValues": [
+                "uksouth",
+                "ukwest"
+            ],
+            "defaultValue": "UK South",
+            "type": "string"
+        },
+        "aiAppName": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "aiTag_ManagedBy": {
+            "allowedValues": [
+                "DevOps"
+            ],
+            "type": "string"
+        },
+        "aiTag_SolutionOwner": {
+            "allowedValues": [
+                "DTS"
+            ],
+            "type": "string"
+        },
+        "aiTag_ActivityName": {
+            "allowedValues": [
+                "Cloud Management"
+            ],
+            "type": "string"
+        },
+        "aiTag_DataClassification": {
+            "allowedValues": [
+                "internal",
+                "public",
+                "secret"
+            ],
+            "type": "string"
+        },
+        "aiTag_Automation": {
+            "defaultValue": "{}",
+            "type": "string"
+        },
+        "aiTag_CostCentre": {
+            "allowedValues": [
+                "10245117"
+            ],
+            "type": "string"
+        },
+        "aiTag_Environment": {
+            "allowedValues": [
+                "sandbox",
+                "development",
+                "testing",
+                "ithc",
+                "production",
+                "staging",
+                "demo",
+                "management"
+            ],
+            "type": "string"
+        },
+        "aiTag_Criticality": {
+            "allowedValues": [
+                "low",
+                "medium",
+                "high"
+            ],
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "functions": [
+        {
+            "namespace": "hmcts",
+            "members": {
+                "getAiName": {
+                    "parameters": [
+                        {
+                            "name": "originName",
+                            "type": "string"
+                        }
+                    ],
+                    "output": {
+                        "type": "string",
+                        "value": "[if(endsWith(parameters('originName'), '-ai'), parameters('originName'), concat(parameters('originName'),'-ai'))]"
+                    }
+                }
+            }
+        }
+    ],
+    "resources": [
+        {
+            "apiVersion": "2015-05-01",
+            "name": "[hmcts.getAiName(parameters('aiName'))]",
+            "type": "microsoft.insights/components",
+            "location": "[parameters('aiLocation')]",
+            "tags": {
+                "managedBy": "[parameters('aiTag_ManagedBy')]",
+                "solutionOwner": "[parameters('aiTag_SolutionOwner')]",
+                "activityName": "[parameters('aiTag_ActivityName')]",
+                "dataClassification": "[parameters('aiTag_DataClassification')]",
+                "automation": "[parameters('aiTag_Automation')]",
+                "costCentre": "[parameters('aiTag_CostCentre')]",
+                "environment": "[parameters('aiTag_Environment')]",
+                "criticality": "[parameters('aiTag_Criticality')]"
+            },
+            "properties": {
+                "ApplicationId": "[parameters('aiAppName')]",
+                "Request_Source": "IbizaWebAppExtensionCreate"
+            }
+        }
+    ],
+    "outputs": {}
+}

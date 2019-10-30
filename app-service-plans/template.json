@@ -1,0 +1,176 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "aspName": {
+            "type": "string"
+        },
+        "aspLocation": {
+            "allowedValues": [
+                "uksouth",
+                "ukwest"
+            ],
+            "defaultValue": "UK South",
+            "type": "string"
+        },
+        "aspKind": {
+            "allowedValues": [
+                ""
+            ],
+            "defaultValue": "",
+            "type": "string"
+        },
+        "aspWorkerSize": {
+            "allowedValues": [
+                "0"
+            ],
+            "defaultValue": "0",
+            "type": "string"
+        },
+        "aspWorkerSizeId": {
+            "allowedValues": [
+                "0"
+            ],
+            "defaultValue": "0",
+            "type": "string"
+        },
+        "aspNumberOfWorkers": {
+            "allowedValues": [
+                "1",
+                "2"
+            ],
+            "defaultValue": "1",
+            "type": "string"
+        },
+        "aspHostingEnvironment": {
+            "allowedValues": [
+                ""
+            ],
+            "defaultValue": "",
+            "type": "string"
+        },
+        "aspSku": {
+            "allowedValues": [
+                "Dynamic"
+            ],
+            "defaultValue": "Dynamic",
+            "type": "string"
+        },
+        "aspSkuCode": {
+            "allowedValues": [
+                "Y1"
+            ],
+            "defaultValue": "Y1",
+            "type": "string"
+        },
+        "aspTag_ManagedBy": {
+            "allowedValues": [
+                "DevOps"
+            ],
+            "type": "string"
+        },
+        "aspTag_SolutionOwner": {
+            "allowedValues": [
+                "DTS"
+            ],
+            "type": "string"
+        },
+        "aspTag_ActivityName": {
+            "allowedValues": [
+                "Cloud Management"
+            ],
+            "type": "string"
+        },
+        "aspTag_DataClassification": {
+            "allowedValues": [
+                "internal",
+                "public",
+                "secret"
+            ],
+            "type": "string"
+        },
+        "aspTag_Automation": {
+            "defaultValue": "{}",
+            "type": "string"
+        },
+        "aspTag_CostCentre": {
+            "allowedValues": [
+                "10245117"
+            ],
+            "type": "string"
+        },
+        "aspTag_Environment": {
+            "allowedValues": [
+                "sandbox",
+                "development",
+                "testing",
+                "ithc",
+                "production",
+                "staging",
+                "demo",
+                "management"
+            ],
+            "type": "string"
+        },
+        "aspTag_Criticality": {
+            "allowedValues": [
+                "low",
+                "medium",
+                "high"
+            ],
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "functions": [
+        {
+            "namespace": "hmcts",
+            "members": {
+                "getAspName": {
+                    "parameters": [
+                        {
+                            "name": "originName",
+                            "type": "string"
+                        }
+                    ],
+                    "output": {
+                        "type": "string",
+                        "value": "[if(endsWith(parameters('originName'), '-asp'), parameters('originName'), concat(parameters('originName'),'-asp'))]"
+                    }
+                }
+            }
+        }
+    ],
+    "resources": [
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[hmcts.getAspName(parameters('aspName'))]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[parameters('aspLocation')]",
+            "kind": "[parameters('aspKind')]",
+            "tags": {
+                "managedBy": "[parameters('aspTag_ManagedBy')]",
+                "solutionOwner": "[parameters('aspTag_SolutionOwner')]",
+                "activityName": "[parameters('aspTag_ActivityName')]",
+                "dataClassification": "[parameters('aspTag_DataClassification')]",
+                "automation": "[parameters('aspTag_Automation')]",
+                "costCentre": "[parameters('aspTag_CostCentre')]",
+                "environment": "[parameters('aspTag_Environment')]",
+                "criticality": "[parameters('aspTag_Criticality')]"
+            },
+            "dependsOn": [],
+            "properties": {
+                "name": "[hmcts.getAspName(parameters('aspName'))]",
+                "workerSize": "[parameters('aspWorkerSize')]",
+                "workerSizeId": "[parameters('aspWorkerSizeId')]",
+                "numberOfWorkers": "[parameters('aspNumberOfWorkers')]",
+                "hostingEnvironment": "[parameters('aspHostingEnvironment')]"
+            },
+            "sku": {
+                "Tier": "[parameters('aspSku')]",
+                "Name": "[parameters('aspSkuCode')]"
+            }
+        }
+    ],
+    "outputs": {}
+}

@@ -1,4 +1,4 @@
-# Resource Group ARM Template
+# App Service (Plan) ARM Template
 
 Basic ARM template that will help to enforce compliance with the programme
 governance for application service plan components.

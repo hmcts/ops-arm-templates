@@ -1,4 +1,4 @@
-# Resource Group ARM Template
+# App Service (Plan) ARM Template
 
 Basic ARM template that will help to enforce compliance with the programme
 governance for application service plan components.
@@ -165,7 +165,7 @@ The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
 New-AzResourceGroupDeployment `
   -Name example-deployment `
-  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/app-service-plan/template.json `
+  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/app-service/plan/template.json `
   -ResourceGroupName "example-resource-group-rg" `
   -aspName example-app-service-plan `
   -aspLocation uksouth `

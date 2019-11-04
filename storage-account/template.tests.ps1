@@ -15,7 +15,6 @@ Describe 'ARM template validation' {
         It 'Contains all required elements' {
             $Elements = '$schema',
                 'contentVersion',
-                'functions',
                 'outputs',
                 'parameters',
                 'resources',
@@ -24,13 +23,9 @@ Describe 'ARM template validation' {
             $templateProperties | Should -Be $Elements
         }
         It 'Creates the expected resources' {
-            $Element = 'microsoft.insights/components'
+            $Element = @('Microsoft.Storage/storageAccounts', 'microsoft.storage/storageaccounts/blobServices')
             $templateResources = $template.Resources.type
             $templateResources | Should -Be $Element
-        }
-        It 'Has the custom function hmcts.getAiName' {
-            $Element = '@{getAiName=}'
-            $template.Functions.members | ForEach-Object { $_ -Match $Element } | Should -Contain $True
         }
     }
 }

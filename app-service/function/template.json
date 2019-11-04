@@ -26,7 +26,12 @@
             "type": "string"
         },
         "afAiName": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": ""
+        },
+        "afAiKey": {
+            "type": "string",
+            "defaultValue": ""
         },
         "afAspName": {
             "type": "string"
@@ -151,10 +156,6 @@
                 "environment": "[parameters('afTag_Environment')]",
                 "criticality": "[parameters('afTag_Criticality')]"
             },
-            "dependsOn": [
-                "[concat('microsoft.insights/components/', parameters('afAiName'))]",
-                "[concat('Microsoft.Web/serverfarms/', parameters('afAspName'))]"
-            ],
             "properties": {
                 "name": "[hmcts.getAfName(parameters('afName'))]",
                 "siteConfig": {
@@ -169,7 +170,7 @@
                         },
                         {
                             "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                            "value": "[reference(concat('microsoft.insights/components/', parameters('afAiName')), '2015-05-01').InstrumentationKey]"
+                            "value": "[if(empty(parameters('afAiKey')), parameters('afAiName'), parameters('afAiKey'))]"
                         },
                         {
                             "name": "AzureWebJobsStorage",

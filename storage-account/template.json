@@ -1,0 +1,151 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "saName": {
+            "type": "string"
+        },
+        "saLocation": {
+            "allowedValues": [
+                "uksouth",
+                "ukwest"
+            ],
+            "defaultValue": "UK South",
+            "type": "string"
+        },
+        "saAccountType": {
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_ZRS",
+                "Standard_GRS",
+                "Standard_RAGRS"
+            ],
+            "type": "string",
+            "defaultValue": "Standard_ZRS"
+        },
+        "saKind": {
+            "allowedValues": [
+                "StorageV2"
+            ],
+            "type": "string",
+            "defaultValue": "StorageV2"
+        },
+        "saAccessTier": {
+            "allowedValues": [
+                "Hot",
+                "Cool"
+            ],
+            "type": "string",
+            "defaultValue": "Cool"
+        },
+        "saSoftDelete": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "saSoftDeleteRetention": {
+            "type": "int",
+            "defaultValue": 7
+        },
+        "saTag_ManagedBy": {
+            "allowedValues": [
+                "DevOps"
+            ],
+            "type": "string"
+        },
+        "saTag_SolutionOwner": {
+            "allowedValues": [
+                "DTS"
+            ],
+            "type": "string"
+        },
+        "saTag_ActivityName": {
+            "allowedValues": [
+                "Cloud Management"
+            ],
+            "type": "string"
+        },
+        "saTag_DataClassification": {
+            "allowedValues": [
+                "internal",
+                "public",
+                "secret"
+            ],
+            "type": "string"
+        },
+        "saTag_Automation": {
+            "defaultValue": "{}",
+            "type": "string"
+        },
+        "saTag_CostCentre": {
+            "allowedValues": [
+                "10245117"
+            ],
+            "type": "string"
+        },
+        "saTag_Environment": {
+            "allowedValues": [
+                "sandbox",
+                "development",
+                "testing",
+                "ithc",
+                "production",
+                "staging",
+                "demo",
+                "management"
+            ],
+            "type": "string"
+        },
+        "saTag_Criticality": {
+            "allowedValues": [
+                "low",
+                "medium",
+                "high"
+            ],
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('saName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "location": "[parameters('saLocation')]",
+            "properties": {
+                "accessTier": "[parameters('saAccessTier')]",
+                "supportsHttpsTrafficOnly": true
+            },
+            "dependsOn": [],
+            "sku": {
+                "name": "[parameters('saAccountType')]"
+            },
+            "kind": "[parameters('saKind')]",
+            "tags": {
+                "managedBy": "[parameters('saTag_ManagedBy')]",
+                "solutionOwner": "[parameters('saTag_SolutionOwner')]",
+                "activityName": "[parameters('saTag_ActivityName')]",
+                "dataClassification": "[parameters('saTag_DataClassification')]",
+                "automation": "[parameters('saTag_Automation')]",
+                "costCentre": "[parameters('saTag_CostCentre')]",
+                "environment": "[parameters('saTag_Environment')]",
+                "criticality": "[parameters('saTag_Criticality')]"
+            }
+        },
+        {
+            "name": "[concat(parameters('saName'), '/default')]",
+            "type": "microsoft.storage/storageaccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "properties": {
+                "deleteRetentionPolicy": {
+                    "enabled": "[parameters('saSoftDelete')]",
+                    "days": "[parameters('saSoftDeleteRetention')]"
+                }
+            },
+            "dependsOn": [
+                "[concat('microsoft.storage/storageaccounts/', parameters('saName'))]"
+            ]
+        }
+    ],
+    "outputs": {}
+}
+

@@ -1,0 +1,119 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "kvName": {
+            "type": "String"
+        },
+        "kvLocation": {
+            "allowedValues": [
+                "uksouth",
+                "ukwest"
+            ],
+            "defaultValue": "UK South",
+            "type": "string"
+        },
+        "kvTenant": {
+            "type": "string"
+        },
+        "kvEnabledForDeployment": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "kvEnabledForDiskEncryption": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "kvEnabledForTemplateDeployment": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "kvTag_ManagedBy": {
+            "allowedValues": [
+                "DevOps"
+            ],
+            "type": "string"
+        },
+        "kvTag_SolutionOwner": {
+            "allowedValues": [
+                "DTS"
+            ],
+            "type": "string"
+        },
+        "kvTag_ActivityName": {
+            "allowedValues": [
+                "Cloud Management"
+            ],
+            "type": "string"
+        },
+        "kvTag_DataClassification": {
+            "allowedValues": [
+                "internal",
+                "public",
+                "secret"
+            ],
+            "type": "string"
+        },
+        "kvTag_Automation": {
+            "defaultValue": "{}",
+            "type": "string"
+        },
+        "kvTag_CostCentre": {
+            "allowedValues": [
+                "10245117"
+            ],
+            "type": "string"
+        },
+        "kvTag_Environment": {
+            "allowedValues": [
+                "sandbox",
+                "development",
+                "testing",
+                "ithc",
+                "production",
+                "staging",
+                "demo",
+                "management"
+            ],
+            "type": "string"
+        },
+        "kvTag_Criticality": {
+            "allowedValues": [
+                "low",
+                "medium",
+                "high"
+            ],
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2016-10-01",
+            "name": "[parameters('kvName')]",
+            "location": "[parameters('kvLocation')]",
+            "tags": {
+                "managedBy": "[parameters('kvTag_ManagedBy')]",
+                "solutionOwner": "[parameters('kvTag_SolutionOwner')]",
+                "activityName": "[parameters('kvTag_ActivityName')]",
+                "dataClassification": "[parameters('kvTag_DataClassification')]",
+                "automation": "[parameters('kvTag_Automation')]",
+                "costCentre": "[parameters('kvTag_CostCentre')]",
+                "environment": "[parameters('kvTag_Environment')]",
+                "criticality": "[parameters('kvTag_Criticality')]"
+            },
+            "properties": {
+                "sku": {
+                    "family": "A",
+                    "name": "standard"
+                },
+                "tenantId": "[parameters('kvTenant')]",
+                "accessPolicies": [],
+                "enabledForDeployment": "[parameters('kvEnabledForDeployment')]",
+                "enabledForDiskEncryption": "[parameters('kvEnabledForDiskEncryption')]",
+                "enabledForTemplateDeployment": "[parameters('kvEnabledForTemplateDeployment')]"
+            }
+        }
+    ]
+}

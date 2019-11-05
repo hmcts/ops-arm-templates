@@ -192,8 +192,10 @@ New-AzResourceGroupDeployment `
   -Name example-deployment `
   -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/app-service/function/template.json `
   -ResourceGroupName "example-resource-group-rg" `
+  -afSubscriptionId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" `
   -afName example-app-function `
   -afLocation uksouth `
+  -afKind "functionapp" `
   -afRuntime powershell `
   -afResourceGroup "example-resource-group-rg" `
   -afStorageAccountName "example-storage-account-sa" `
@@ -216,8 +218,10 @@ New-AzResourceGroupDeployment `
   -Name example-deployment `
   -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/app-service/function/template.json `
   -ResourceGroupName "example-resource-group-rg" `
+  -afSubscriptionId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" `
   -afName example-app-function `
   -afLocation uksouth `
+  -afKind "functionapp" `
   -afRuntime powershell `
   -afResourceGroup "example-resource-group-rg" `
   -afStorageAccountName "example-storage-account-sa" `

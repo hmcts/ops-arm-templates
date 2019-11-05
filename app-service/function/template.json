@@ -170,7 +170,7 @@
                         },
                         {
                             "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                            "value": "[if(empty(parameters('afAiKey')), parameters('afAiName'), parameters('afAiKey'))]"
+                            "value": "[if(empty(parameters('afAiKey')), reference(concat('microsoft.insights/components/', parameters('afAiName')), '2015-05-01').InstrumentationKey, parameters('afAiKey'))]"
                         },
                         {
                             "name": "AzureWebJobsStorage",

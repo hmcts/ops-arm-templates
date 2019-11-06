@@ -90,70 +90,70 @@ default value of `Dynamic`.
 The SKU Code for the App Service Plan. Has allowed values of `Y1`. Has a
 default value of `Y1`.
 
-### aspTag_ManagedBy
+### cTag_ManagedBy
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aspTag_ManagedBy          | yes      | string  | yes |
+| cTag_ManagedBy          | yes      | string  | yes |
 
 The `managedBy` tag value. Has allowed values of `DevOps`.
 
-### aspTag_SolutionOwner
+### cTag_SolutionOwner
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aspTag_SolutionOwner      | yes      | string  | yes |
+| cTag_SolutionOwner      | yes      | string  | yes |
 
 The `solutionOwner` tag value. Has allowed values of `DTS`.
 
-### aspTag_ActivityName
+### cTag_ActivityName
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aspTag_ActivityName       | yes      | string  | yes |
+| cTag_ActivityName       | yes      | string  | yes |
 
 The `activityName` tag value. Has allowed values of `Cloud Management`.
 
-### aspTag_DataClassification
+### cTag_DataClassification
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aspTag_DataClassification | yes      | string  | yes |
+| cTag_DataClassification | yes      | string  | yes |
 
 The `dataClassification` tag value. Has allowed values of `internal`, `secret`
 and `public`.
 
-### aspTag_Automation
+### cTag_Automation
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aspTag_Automation         | no       | string  | no  |
+| cTag_Automation         | no       | string  | no  |
 
 The `automation` tag value. Has default value of `{}`.
 
-### aspTag_CostCentre
+### cTag_CostCentre
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aspTag_CostCentre         | yes      | string  | yes |
+| cTag_CostCentre         | yes      | string  | yes |
 
 The `costCentre` tag value. Has allowed values of `10245117`.
 
-### aspTag_Environment
+### cTag_Environment
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aspTag_Environment        | yes      | string  | yes |
+| cTag_Environment        | yes      | string  | yes |
 
 The `environment` tag value. Has allowed values of `sandbox`, `development`,
 `testing`, `ithc`, `production`, `staging`, `demo`, `production` and
 `management`.
 
-### aspTag_Criticality
+### cTag_Criticality
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aspTag_Criticality        | yes      | string  | yes |
+| cTag_Criticality        | yes      | string  | yes |
 
 The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 
@@ -165,15 +165,12 @@ The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
 New-AzResourceGroupDeployment `
   -Name example-deployment `
-  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/app-service/plan/template.json `
+  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/templates/v1/app-service/plan/template.json `
+  -TemplateParameterUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/parameters/common/tags/devops.json `
   -ResourceGroupName "example-resource-group-rg" `
   -aspName example-app-service-plan `
   -aspLocation uksouth `
-  -aspTag_ManagedBy DevOps `
-  -aspTag_SolutionOwner DTS `
-  -aspTag_ActivityName "Cloud Management" `
-  -aspTag_DataClassification internal `
-  -aspTag_CostCentre 10245117 `
-  -aspTag_Environment sandbox `
-  -aspTag_Criticality low
+  -cTag_ActivityName "Cloud Management" `
+  -cTag_Environment sandbox `
+  -cTag_Criticality low
 ```

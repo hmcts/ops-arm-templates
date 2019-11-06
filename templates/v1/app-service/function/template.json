@@ -60,25 +60,25 @@
             ],
             "type": "string"
         },
-        "afTag_ManagedBy": {
+        "cTag_ManagedBy": {
             "allowedValues": [
                 "DevOps"
             ],
             "type": "string"
         },
-        "afTag_SolutionOwner": {
+        "cTag_SolutionOwner": {
             "allowedValues": [
                 "DTS"
             ],
             "type": "string"
         },
-        "afTag_ActivityName": {
+        "cTag_ActivityName": {
             "allowedValues": [
                 "Cloud Management"
             ],
             "type": "string"
         },
-        "afTag_DataClassification": {
+        "cTag_DataClassification": {
             "allowedValues": [
                 "internal",
                 "public",
@@ -86,17 +86,17 @@
             ],
             "type": "string"
         },
-        "afTag_Automation": {
+        "cTag_Automation": {
             "defaultValue": "{}",
             "type": "string"
         },
-        "afTag_CostCentre": {
+        "cTag_CostCentre": {
             "allowedValues": [
                 "10245117"
             ],
             "type": "string"
         },
-        "afTag_Environment": {
+        "cTag_Environment": {
             "allowedValues": [
                 "sandbox",
                 "development",
@@ -109,7 +109,7 @@
             ],
             "type": "string"
         },
-        "afTag_Criticality": {
+        "cTag_Criticality": {
             "allowedValues": [
                 "low",
                 "medium",
@@ -147,14 +147,14 @@
             "kind": "[parameters('afKind')]",
             "location": "[parameters('afLocation')]",
             "tags": {
-                "managedBy": "[parameters('afTag_ManagedBy')]",
-                "solutionOwner": "[parameters('afTag_SolutionOwner')]",
-                "activityName": "[parameters('afTag_ActivityName')]",
-                "dataClafsification": "[parameters('afTag_DataClassification')]",
-                "automation": "[parameters('afTag_Automation')]",
-                "costCentre": "[parameters('afTag_CostCentre')]",
-                "environment": "[parameters('afTag_Environment')]",
-                "criticality": "[parameters('afTag_Criticality')]"
+                "managedBy": "[parameters('cTag_ManagedBy')]",
+                "solutionOwner": "[parameters('cTag_SolutionOwner')]",
+                "activityName": "[parameters('cTag_ActivityName')]",
+                "dataClafsification": "[parameters('cTag_DataClassification')]",
+                "automation": "[parameters('cTag_Automation')]",
+                "costCentre": "[parameters('cTag_CostCentre')]",
+                "environment": "[parameters('cTag_Environment')]",
+                "criticality": "[parameters('cTag_Criticality')]"
             },
             "properties": {
                 "name": "[hmcts.getAfName(parameters('afName'))]",

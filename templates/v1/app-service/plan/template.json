@@ -63,25 +63,25 @@
             "defaultValue": "Y1",
             "type": "string"
         },
-        "aspTag_ManagedBy": {
+        "cTag_ManagedBy": {
             "allowedValues": [
                 "DevOps"
             ],
             "type": "string"
         },
-        "aspTag_SolutionOwner": {
+        "cTag_SolutionOwner": {
             "allowedValues": [
                 "DTS"
             ],
             "type": "string"
         },
-        "aspTag_ActivityName": {
+        "cTag_ActivityName": {
             "allowedValues": [
                 "Cloud Management"
             ],
             "type": "string"
         },
-        "aspTag_DataClassification": {
+        "cTag_DataClassification": {
             "allowedValues": [
                 "internal",
                 "public",
@@ -89,17 +89,17 @@
             ],
             "type": "string"
         },
-        "aspTag_Automation": {
+        "cTag_Automation": {
             "defaultValue": "{}",
             "type": "string"
         },
-        "aspTag_CostCentre": {
+        "cTag_CostCentre": {
             "allowedValues": [
                 "10245117"
             ],
             "type": "string"
         },
-        "aspTag_Environment": {
+        "cTag_Environment": {
             "allowedValues": [
                 "sandbox",
                 "development",
@@ -112,7 +112,7 @@
             ],
             "type": "string"
         },
-        "aspTag_Criticality": {
+        "cTag_Criticality": {
             "allowedValues": [
                 "low",
                 "medium",
@@ -149,14 +149,14 @@
             "location": "[parameters('aspLocation')]",
             "kind": "[parameters('aspKind')]",
             "tags": {
-                "managedBy": "[parameters('aspTag_ManagedBy')]",
-                "solutionOwner": "[parameters('aspTag_SolutionOwner')]",
-                "activityName": "[parameters('aspTag_ActivityName')]",
-                "dataClassification": "[parameters('aspTag_DataClassification')]",
-                "automation": "[parameters('aspTag_Automation')]",
-                "costCentre": "[parameters('aspTag_CostCentre')]",
-                "environment": "[parameters('aspTag_Environment')]",
-                "criticality": "[parameters('aspTag_Criticality')]"
+                "managedBy": "[parameters('cTag_ManagedBy')]",
+                "solutionOwner": "[parameters('cTag_SolutionOwner')]",
+                "activityName": "[parameters('cTag_ActivityName')]",
+                "dataClassification": "[parameters('cTag_DataClassification')]",
+                "automation": "[parameters('cTag_Automation')]",
+                "costCentre": "[parameters('cTag_CostCentre')]",
+                "environment": "[parameters('cTag_Environment')]",
+                "criticality": "[parameters('cTag_Criticality')]"
             },
             "dependsOn": [],
             "properties": {

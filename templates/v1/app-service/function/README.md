@@ -211,10 +211,14 @@ Usage if we are using alternative resource groups for the storage account and
 
 ```powershell
 Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
+Invoke-WebRequest `
+    -OutFile ($tempParamFile = New-TemporaryFile).FullName `
+    -Uri "https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/parameters/v1/common/tags/devops.json" `
+    -ErrorAction Stop
 New-AzResourceGroupDeployment `
   -Name example-deployment `
   -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/templates/v1/app-service/function/template.json `
-  -TemplateParameterUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/parameters/common/tags/devops.json `
+  -TemplateParameterFile $tempParamFile.FullName `
   -ResourceGroupName "example-resource-group-rg" `
   -afSubscriptionId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" `
   -afName example-app-function `
@@ -230,4 +234,5 @@ New-AzResourceGroupDeployment `
   -cTag_ActivityName "Cloud Management" `
   -cTag_Environment sandbox `
   -cTag_Criticality low
+Remove-Item $tempParamFile.FullName -Force
 ```

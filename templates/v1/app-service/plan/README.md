@@ -163,14 +163,19 @@ The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 
 ```powershell
 Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
+Invoke-WebRequest `
+    -OutFile ($tempParamFile = New-TemporaryFile).FullName `
+    -Uri "https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/parameters/v1/common/tags/devops.json" `
+    -ErrorAction Stop
 New-AzResourceGroupDeployment `
   -Name example-deployment `
   -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/templates/v1/app-service/plan/template.json `
-  -TemplateParameterUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/parameters/common/tags/devops.json `
+  -TemplateParameterFile $tempParamFile.FullName `
   -ResourceGroupName "example-resource-group-rg" `
   -aspName example-app-service-plan `
   -aspLocation uksouth `
   -cTag_ActivityName "Cloud Management" `
   -cTag_Environment sandbox `
   -cTag_Criticality low
+Remove-Item $tempParamFile.FullName -Force
 ```

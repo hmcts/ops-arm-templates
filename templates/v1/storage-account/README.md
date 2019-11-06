@@ -69,70 +69,70 @@ If soft delete should be enabled on the BLOB storage elements. Defaults to
 
 How many days retention for the soft delete protection. Defaults to `7`.
 
-### saTag_ManagedBy
+### cTag_ManagedBy
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| saTag_ManagedBy          | yes      | string  | yes |
+| cTag_ManagedBy          | yes      | string  | yes |
 
 The `managedBy` tag value. Has allowed values of `DevOps`.
 
-### saTag_SolutionOwner
+### cTag_SolutionOwner
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| saTag_SolutionOwner      | yes      | string  | yes |
+| cTag_SolutionOwner      | yes      | string  | yes |
 
 The `solutionOwner` tag value. Has allowed values of `DTS`.
 
-### saTag_ActivityName
+### cTag_ActivityName
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| saTag_ActivityName       | yes      | string  | yes |
+| cTag_ActivityName       | yes      | string  | yes |
 
 The `activityName` tag value. Has allowed values of `Cloud Management`.
 
-### saTag_DataClassification
+### cTag_DataClassification
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| saTag_DataClassification | yes      | string  | yes |
+| cTag_DataClassification | yes      | string  | yes |
 
 The `dataClassification` tag value. Has allowed values of `internal`, `secret`
 and `public`.
 
-### saTag_Automation
+### cTag_Automation
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| saTag_Automation         | no       | string  | no  |
+| cTag_Automation         | no       | string  | no  |
 
 The `automation` tag value. Has default value of `{}`.
 
-### saTag_CostCentre
+### cTag_CostCentre
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| saTag_CostCentre         | yes      | string  | yes |
+| cTag_CostCentre         | yes      | string  | yes |
 
 The `costCentre` tag value. Has allowed values of `10245117`.
 
-### saTag_Environment
+### cTag_Environment
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| saTag_Environment        | yes      | string  | yes |
+| cTag_Environment        | yes      | string  | yes |
 
 The `environment` tag value. Has allowed values of `sandbox`, `development`,
 `testing`, `ithc`, `production`, `staging`, `demo`, `production` and
 `management`.
 
-### saTag_Criticality
+### cTag_Criticality
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| saTag_Criticality        | yes      | string  | yes |
+| cTag_Criticality        | yes      | string  | yes |
 
 The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 
@@ -144,15 +144,12 @@ The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
 New-AzResourceGroupDeployment `
   -Name example-deployment `
-  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/storage-account/template.json `
+  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/templates/v1/storage-account/template.json `
+  -TemplateParameterUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/parameters/common/tags/devops.json `
   -ResourceGroupName "example-resource-group-rg" `
   -saName random-string-here `
   -saLocation uksouth `
-  -saTag_ManagedBy DevOps `
-  -saTag_SolutionOwner DTS `
-  -saTag_ActivityName "Cloud Management" `
-  -saTag_DataClassification internal `
-  -saTag_CostCentre 10245117 `
-  -saTag_Environment sandbox `
-  -saTag_Criticality low
+  -cTag_ActivityName "Cloud Management" `
+  -cTag_Environment sandbox `
+  -cTag_Criticality low
 ```

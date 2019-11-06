@@ -36,70 +36,70 @@ The location for the Application Insights component. Has allowed values of
 The application name for the Application Insights component. Defaults to a
 blank string `""`.
 
-### aiTag_ManagedBy
+### cTag_ManagedBy
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aiTag_ManagedBy          | yes      | string  | yes |
+| cTag_ManagedBy          | yes      | string  | yes |
 
 The `managedBy` tag value. Has allowed values of `DevOps`.
 
-### aiTag_SolutionOwner
+### cTag_SolutionOwner
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aiTag_SolutionOwner      | yes      | string  | yes |
+| cTag_SolutionOwner      | yes      | string  | yes |
 
 The `solutionOwner` tag value. Has allowed values of `DTS`.
 
-### aiTag_ActivityName
+### cTag_ActivityName
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aiTag_ActivityName       | yes      | string  | yes |
+| cTag_ActivityName       | yes      | string  | yes |
 
 The `activityName` tag value. Has allowed values of `Cloud Management`.
 
-### aiTag_DataClassification
+### cTag_DataClassification
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aiTag_DataClassification | yes      | string  | yes |
+| cTag_DataClassification | yes      | string  | yes |
 
 The `dataClassification` tag value. Has allowed values of `internal`, `secret`
 and `public`.
 
-### aiTag_Automation
+### cTag_Automation
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aiTag_Automation         | no       | string  | no  |
+| cTag_Automation         | no       | string  | no  |
 
 The `automation` tag value. Has default value of `{}`.
 
-### aiTag_CostCentre
+### cTag_CostCentre
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aiTag_CostCentre         | yes      | string  | yes |
+| cTag_CostCentre         | yes      | string  | yes |
 
 The `costCentre` tag value. Has allowed values of `10245117`.
 
-### aiTag_Environment
+### cTag_Environment
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aiTag_Environment        | yes      | string  | yes |
+| cTag_Environment        | yes      | string  | yes |
 
 The `environment` tag value. Has allowed values of `sandbox`, `development`,
 `testing`, `ithc`, `production`, `staging`, `demo`, `production` and
 `management`.
 
-### aiTag_Criticality
+### cTag_Criticality
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| aiTag_Criticality        | yes      | string  | yes |
+| cTag_Criticality        | yes      | string  | yes |
 
 The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 
@@ -111,15 +111,12 @@ The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
 New-AzResourceGroupDeployment `
   -Name example-deployment `
-  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/application-insights/template.json `
+  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/templates/v1/application-insights/template.json `
+  -TemplateParameterUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/parameters/common/tags/devops.json `
   -ResourceGroupName "example-resource-group-rg" `
   -aiName example-application-insight `
   -aiLocation uksouth `
-  -aiTag_ManagedBy DevOps `
-  -aiTag_SolutionOwner DTS `
-  -aiTag_ActivityName "Cloud Management" `
-  -aiTag_DataClassification internal `
-  -aiTag_CostCentre 10245117 `
-  -aiTag_Environment sandbox `
-  -aiTag_Criticality low
+  -cTag_ActivityName "Cloud Management" `
+  -cTag_Environment sandbox `
+  -cTag_Criticality low
 ```

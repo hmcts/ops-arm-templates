@@ -113,70 +113,70 @@ The function runtime execution engine. Has allowed values of `powershell`.
 The Hosting Environment for the App Service Function. Has allowed values of
 `""`. Has a default value of `""`.
 
-### afTag_ManagedBy
+### cTag_ManagedBy
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| afTag_ManagedBy          | yes      | string  | yes |
+| cTag_ManagedBy          | yes      | string  | yes |
 
 The `managedBy` tag value. Has allowed values of `DevOps`.
 
-### afTag_SolutionOwner
+### cTag_SolutionOwner
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| afTag_SolutionOwner      | yes      | string  | yes |
+| cTag_SolutionOwner      | yes      | string  | yes |
 
 The `solutionOwner` tag value. Has allowed values of `DTS`.
 
-### afTag_ActivityName
+### cTag_ActivityName
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| afTag_ActivityName       | yes      | string  | yes |
+| cTag_ActivityName       | yes      | string  | yes |
 
 The `activityName` tag value. Has allowed values of `Cloud Management`.
 
-### afTag_DataClassification
+### cTag_DataClassification
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| afTag_DataClassification | yes      | string  | yes |
+| cTag_DataClassification | yes      | string  | yes |
 
 The `dataClassification` tag value. Has allowed values of `internal`, `secret`
 and `public`.
 
-### afTag_Automation
+### cTag_Automation
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| afTag_Automation         | no       | string  | no  |
+| cTag_Automation         | no       | string  | no  |
 
 The `automation` tag value. Has default value of `{}`.
 
-### afTag_CostCentre
+### cTag_CostCentre
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| afTag_CostCentre         | yes      | string  | yes |
+| cTag_CostCentre         | yes      | string  | yes |
 
 The `costCentre` tag value. Has allowed values of `10245117`.
 
-### afTag_Environment
+### cTag_Environment
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| afTag_Environment        | yes      | string  | yes |
+| cTag_Environment        | yes      | string  | yes |
 
 The `environment` tag value. Has allowed values of `sandbox`, `development`,
 `testing`, `ithc`, `production`, `staging`, `demo`, `production` and
 `management`.
 
-### afTag_Criticality
+### cTag_Criticality
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| afTag_Criticality        | yes      | string  | yes |
+| cTag_Criticality        | yes      | string  | yes |
 
 The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 
@@ -190,7 +190,8 @@ Basic usage (assuming everything is for the destination RG):
 Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
 New-AzResourceGroupDeployment `
   -Name example-deployment `
-  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/app-service/function/template.json `
+  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/templates/v1/app-service/function/template.json `
+  -TemplateParameterUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/parameters/common/tags/devops.json `
   -ResourceGroupName "example-resource-group-rg" `
   -afSubscriptionId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" `
   -afName example-app-function `
@@ -201,13 +202,9 @@ New-AzResourceGroupDeployment `
   -afStorageAccountName "example-storage-account-sa" `
   -afAspName "example-app-storage-plan-asp" `
   -afAiName "example-application-insights-ai" `
-  -afTag_ManagedBy DevOps `
-  -afTag_SolutionOwner DTS `
-  -afTag_ActivityName "Cloud Management" `
-  -afTag_DataClassification internal `
-  -afTag_CostCentre 10245117 `
-  -afTag_Environment sandbox `
-  -afTag_Criticality low
+  -cTag_ActivityName "Cloud Management" `
+  -cTag_Environment sandbox `
+  -cTag_Criticality low
 ```
 
 Usage if we are using alternative resource groups for the storage account and
@@ -216,7 +213,8 @@ Usage if we are using alternative resource groups for the storage account and
 Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
 New-AzResourceGroupDeployment `
   -Name example-deployment `
-  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/app-service/function/template.json `
+  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/templates/v1/app-service/function/template.json `
+  -TemplateParameterUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/parameters/common/tags/devops.json `
   -ResourceGroupName "example-resource-group-rg" `
   -afSubscriptionId "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" `
   -afName example-app-function `
@@ -229,11 +227,7 @@ New-AzResourceGroupDeployment `
   -afAspName "example-app-storage-plan-asp" `
   -afAspResourceGroup "example-app-service-plan-rg" `
   -afAiName "example-application-insights-ai" `
-  -afTag_ManagedBy DevOps `
-  -afTag_SolutionOwner DTS `
-  -afTag_ActivityName "Cloud Management" `
-  -afTag_DataClassification internal `
-  -afTag_CostCentre 10245117 `
-  -afTag_Environment sandbox `
-  -afTag_Criticality low
+  -cTag_ActivityName "Cloud Management" `
+  -cTag_Environment sandbox `
+  -cTag_Criticality low
 ```

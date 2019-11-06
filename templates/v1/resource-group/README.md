@@ -27,70 +27,70 @@ be performed.
 The location for the Resource Group. Has allowed values of `uksouth` and
 `ukwest`. Defaults to `uksouth`.
 
-### rgTag_ManagedBy
+### cTag_ManagedBy
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| rgTag_ManagedBy          | yes      | string  | yes |
+| cTag_ManagedBy          | yes      | string  | yes |
 
 The `managedBy` tag value. Has allowed values of `DevOps`.
 
-### rgTag_SolutionOwner
+### cTag_SolutionOwner
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| rgTag_SolutionOwner      | yes      | string  | yes |
+| cTag_SolutionOwner      | yes      | string  | yes |
 
 The `solutionOwner` tag value. Has allowed values of `DTS`.
 
-### rgTag_ActivityName
+### cTag_ActivityName
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| rgTag_ActivityName       | yes      | string  | yes |
+| cTag_ActivityName       | yes      | string  | yes |
 
 The `activityName` tag value. Has allowed values of `Cloud Management`.
 
-### rgTag_DataClassification
+### cTag_DataClassification
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| rgTag_DataClassification | yes      | string  | yes |
+| cTag_DataClassification | yes      | string  | yes |
 
 The `dataClassification` tag value. Has allowed values of `internal`, `secret`
 and `public`.
 
-### rgTag_Automation
+### cTag_Automation
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| rgTag_Automation         | no       | string  | no  |
+| cTag_Automation         | no       | string  | no  |
 
 The `automation` tag value. Has default value of `{}`.
 
-### rgTag_CostCentre
+### cTag_CostCentre
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| rgTag_CostCentre         | yes      | string  | yes |
+| cTag_CostCentre         | yes      | string  | yes |
 
 The `costCentre` tag value. Has allowed values of `10245117`.
 
-### rgTag_Environment
+### cTag_Environment
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| rgTag_Environment        | yes      | string  | yes |
+| cTag_Environment        | yes      | string  | yes |
 
 The `environment` tag value. Has allowed values of `sandbox`, `development`,
 `testing`, `ithc`, `production`, `staging`, `demo`, `production` and
 `management`.
 
-### rgTag_Criticality
+### cTag_Criticality
 
 | Name                     | Required | Type    | AVs |
 | ------------------------ |:--------:| ------- |:---:|
-| rgTag_Criticality        | yes      | string  | yes |
+| cTag_Criticality        | yes      | string  | yes |
 
 The `criticality` tag value. Has allowed values of `high`, `medium` and `low`.
 
@@ -103,14 +103,11 @@ Set-AzContext -SubscriptionId SUBSCRIPTION_UUID
 New-AzDeployment `
   -Name example-deployment `
   -Location uksouth `
-  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/resource-group/template.json `
+  -TemplateUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/templates/v1/resource-group/template.json `
+  -TemplateParameterUri https://raw.githubusercontent.com/hmcts/ops-arm-templates/master/parameters/common/tags/devops.json `
   -rgName example-resource-group `
   -rgLocation uksouth `
-  -rgTag_ManagedBy DevOps `
-  -rgTag_SolutionOwner DTS `
-  -rgTag_ActivityName "Cloud Management" `
-  -rgTag_DataClassification internal `
-  -rgTag_CostCentre 10245117 `
-  -rgTag_Environment sandbox `
-  -rgTag_Criticality low
+  -cTag_ActivityName "Cloud Management" `
+  -cTag_Environment sandbox `
+  -cTag_Criticality low
 ```

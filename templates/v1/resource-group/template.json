@@ -2,10 +2,10 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-        "aiName": {
+        "rgName": {
             "type": "string"
         },
-        "aiLocation": {
+        "rgLocation": {
             "allowedValues": [
                 "uksouth",
                 "ukwest"
@@ -13,29 +13,25 @@
             "defaultValue": "UK South",
             "type": "string"
         },
-        "aiAppName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "aiTag_ManagedBy": {
+        "cTag_ManagedBy": {
             "allowedValues": [
                 "DevOps"
             ],
             "type": "string"
         },
-        "aiTag_SolutionOwner": {
+        "cTag_SolutionOwner": {
             "allowedValues": [
                 "DTS"
             ],
             "type": "string"
         },
-        "aiTag_ActivityName": {
+        "cTag_ActivityName": {
             "allowedValues": [
                 "Cloud Management"
             ],
             "type": "string"
         },
-        "aiTag_DataClassification": {
+        "cTag_DataClassification": {
             "allowedValues": [
                 "internal",
                 "public",
@@ -43,17 +39,17 @@
             ],
             "type": "string"
         },
-        "aiTag_Automation": {
+        "cTag_Automation": {
             "defaultValue": "{}",
             "type": "string"
         },
-        "aiTag_CostCentre": {
+        "cTag_CostCentre": {
             "allowedValues": [
                 "10245117"
             ],
             "type": "string"
         },
-        "aiTag_Environment": {
+        "cTag_Environment": {
             "allowedValues": [
                 "sandbox",
                 "development",
@@ -66,7 +62,7 @@
             ],
             "type": "string"
         },
-        "aiTag_Criticality": {
+        "cTag_Criticality": {
             "allowedValues": [
                 "low",
                 "medium",
@@ -80,7 +76,7 @@
         {
             "namespace": "hmcts",
             "members": {
-                "getAiName": {
+                "getRgName": {
                     "parameters": [
                         {
                             "name": "originName",
@@ -89,7 +85,7 @@
                     ],
                     "output": {
                         "type": "string",
-                        "value": "[if(endsWith(parameters('originName'), '-ai'), parameters('originName'), concat(parameters('originName'),'-ai'))]"
+                        "value": "[if(endsWith(parameters('originName'), '-rg'), parameters('originName'), concat(parameters('originName'),'-rg'))]"
                     }
                 }
             }
@@ -97,23 +93,20 @@
     ],
     "resources": [
         {
-            "apiVersion": "2015-05-01",
-            "name": "[hmcts.getAiName(parameters('aiName'))]",
-            "type": "microsoft.insights/components",
-            "location": "[parameters('aiLocation')]",
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2018-05-01",
+            "location": "[parameters('rgLocation')]",
+            "name": "[hmcts.getRgName(parameters('rgName'))]",
+            "properties": {},
             "tags": {
-                "managedBy": "[parameters('aiTag_ManagedBy')]",
-                "solutionOwner": "[parameters('aiTag_SolutionOwner')]",
-                "activityName": "[parameters('aiTag_ActivityName')]",
-                "dataClassification": "[parameters('aiTag_DataClassification')]",
-                "automation": "[parameters('aiTag_Automation')]",
-                "costCentre": "[parameters('aiTag_CostCentre')]",
-                "environment": "[parameters('aiTag_Environment')]",
-                "criticality": "[parameters('aiTag_Criticality')]"
-            },
-            "properties": {
-                "ApplicationId": "[parameters('aiAppName')]",
-                "Request_Source": "IbizaWebAppExtensionCreate"
+                "managedBy": "[parameters('cTag_ManagedBy')]",
+                "solutionOwner": "[parameters('cTag_SolutionOwner')]",
+                "activityName": "[parameters('cTag_ActivityName')]",
+                "dataClassification": "[parameters('cTag_DataClassification')]",
+                "automation": "[parameters('cTag_Automation')]",
+                "costCentre": "[parameters('cTag_CostCentre')]",
+                "environment": "[parameters('cTag_Environment')]",
+                "criticality": "[parameters('cTag_Criticality')]"
             }
         }
     ],

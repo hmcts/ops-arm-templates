@@ -28,25 +28,25 @@
             "type": "bool",
             "defaultValue": false
         },
-        "kvTag_ManagedBy": {
+        "cTag_ManagedBy": {
             "allowedValues": [
                 "DevOps"
             ],
             "type": "string"
         },
-        "kvTag_SolutionOwner": {
+        "cTag_SolutionOwner": {
             "allowedValues": [
                 "DTS"
             ],
             "type": "string"
         },
-        "kvTag_ActivityName": {
+        "cTag_ActivityName": {
             "allowedValues": [
                 "Cloud Management"
             ],
             "type": "string"
         },
-        "kvTag_DataClassification": {
+        "cTag_DataClassification": {
             "allowedValues": [
                 "internal",
                 "public",
@@ -54,17 +54,17 @@
             ],
             "type": "string"
         },
-        "kvTag_Automation": {
+        "cTag_Automation": {
             "defaultValue": "{}",
             "type": "string"
         },
-        "kvTag_CostCentre": {
+        "cTag_CostCentre": {
             "allowedValues": [
                 "10245117"
             ],
             "type": "string"
         },
-        "kvTag_Environment": {
+        "cTag_Environment": {
             "allowedValues": [
                 "sandbox",
                 "development",
@@ -77,7 +77,7 @@
             ],
             "type": "string"
         },
-        "kvTag_Criticality": {
+        "cTag_Criticality": {
             "allowedValues": [
                 "low",
                 "medium",
@@ -94,14 +94,14 @@
             "name": "[parameters('kvName')]",
             "location": "[parameters('kvLocation')]",
             "tags": {
-                "managedBy": "[parameters('kvTag_ManagedBy')]",
-                "solutionOwner": "[parameters('kvTag_SolutionOwner')]",
-                "activityName": "[parameters('kvTag_ActivityName')]",
-                "dataClassification": "[parameters('kvTag_DataClassification')]",
-                "automation": "[parameters('kvTag_Automation')]",
-                "costCentre": "[parameters('kvTag_CostCentre')]",
-                "environment": "[parameters('kvTag_Environment')]",
-                "criticality": "[parameters('kvTag_Criticality')]"
+                "managedBy": "[parameters('cTag_ManagedBy')]",
+                "solutionOwner": "[parameters('cTag_SolutionOwner')]",
+                "activityName": "[parameters('cTag_ActivityName')]",
+                "dataClassification": "[parameters('cTag_DataClassification')]",
+                "automation": "[parameters('cTag_Automation')]",
+                "costCentre": "[parameters('cTag_CostCentre')]",
+                "environment": "[parameters('cTag_Environment')]",
+                "criticality": "[parameters('cTag_Criticality')]"
             },
             "properties": {
                 "sku": {

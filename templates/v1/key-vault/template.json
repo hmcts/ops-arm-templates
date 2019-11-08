@@ -3,14 +3,14 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "kvName": {
-            "type": "String"
+            "type": "string"
         },
         "kvLocation": {
             "allowedValues": [
                 "uksouth",
                 "ukwest"
             ],
-            "defaultValue": "UK South",
+            "defaultValue": "uksouth",
             "type": "string"
         },
         "kvTenant": {

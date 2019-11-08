@@ -10,7 +10,7 @@
                 "uksouth",
                 "ukwest"
             ],
-            "defaultValue": "UK South",
+            "defaultValue": "uksouth",
             "type": "string"
         },
         "aiAppName": {
@@ -99,7 +99,7 @@
         {
             "apiVersion": "2015-05-01",
             "name": "[hmcts.getAiName(parameters('aiName'))]",
-            "type": "microsoft.insights/components",
+            "type": "Microsoft.Insights/components",
             "location": "[parameters('aiLocation')]",
             "tags": {
                 "managedBy": "[parameters('cTag_ManagedBy')]",

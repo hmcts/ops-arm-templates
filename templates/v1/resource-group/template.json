@@ -10,7 +10,7 @@
                 "uksouth",
                 "ukwest"
             ],
-            "defaultValue": "UK South",
+            "defaultValue": "uksouth",
             "type": "string"
         },
         "cTag_ManagedBy": {

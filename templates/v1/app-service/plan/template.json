@@ -10,7 +10,7 @@
                 "uksouth",
                 "ukwest"
             ],
-            "defaultValue": "UK South",
+            "defaultValue": "uksouth",
             "type": "string"
         },
         "aspKind": {
@@ -167,8 +167,8 @@
                 "hostingEnvironment": "[parameters('aspHostingEnvironment')]"
             },
             "sku": {
-                "Tier": "[parameters('aspSku')]",
-                "Name": "[parameters('aspSkuCode')]"
+                "tier": "[parameters('aspSku')]",
+                "name": "[parameters('aspSkuCode')]"
             }
         }
     ],

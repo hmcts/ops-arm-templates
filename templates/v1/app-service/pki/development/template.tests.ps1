@@ -15,15 +15,13 @@ Describe 'ARM template validation' {
         It "Contains all required elements" {
             $Elements = '$schema',
                 'contentVersion',
-                'outputs',
                 'parameters',
-                'resources',
-                'variables'                                
+                'resources'                               
             $templateProperties = $template | Get-Member -MemberType NoteProperty | ForEach-Object { $_.Name }
             $templateProperties | Should -Be $Elements
         }
         It "Creates the expected resources" {
-            $Element = 'Microsoft.Web/sites'
+            $Element = 'Microsoft.Web/sites/publicCertificates'
             $templateResources = $template.Resources.type
             $templateResources | Should -Be $Element
         }

@@ -111,6 +111,15 @@ The function runtime execution engine. Has allowed values of `powershell`.
 The Hosting Environment for the App Service Function. Has allowed values of
 `""`. Has a default value of `""`.
 
+### afClientCertEnabled
+
+| Name                     | Required | Type    | AVs |
+| ------------------------ |:--------:| ------- |:---:|
+| afClientCertEnabled      | no       | bool    | na  |
+
+Should client certificates be required for this app service function to
+accept inbound connections. Has a default value of `false`.
+
 ### cTag_ManagedBy
 
 | Name                     | Required | Type    | AVs |

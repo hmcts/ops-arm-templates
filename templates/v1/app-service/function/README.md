@@ -14,9 +14,7 @@ be used when executing the template.
 | ------------------------ |:--------:| ------- |:---:|
 | afName                   | yes      | string  | no  |
 
-The name of the Application Service Plan when it is created. It has limited
-logic flow in the template so that if the App Function is not appended `-func`
-this will automatically be performed.
+The name of the Application Service Plan when it is created.
 
 ### afLocation
 

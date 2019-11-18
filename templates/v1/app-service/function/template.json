@@ -168,7 +168,8 @@
                 },
                 "serverFarmId": "[concat('/subscriptions/', parameters('afSubscriptionId'),'/resourcegroups/', if(equals(parameters('afAspResourceGroup'), ''), parameters('afResourceGroup'), parameters('afAspResourceGroup')), '/providers/Microsoft.Web/serverfarms/', parameters('afAspName'))]",
                 "hostingEnvironment": "[parameters('afHostingEnvironment')]",
-                "clientAffinityEnabled": true
+                "clientAffinityEnabled": true,
+                "httpsOnly": true
             }
         }
     ],

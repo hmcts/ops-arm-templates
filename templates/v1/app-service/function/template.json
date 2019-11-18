@@ -119,30 +119,10 @@
         }
     },
     "variables": {},
-    "functions": [
-        {
-            "namespace": "hmcts",
-            "members": {
-                "getAfName": {
-                    "parameters": [
-                        {
-                            "name": "originName",
-                            "type": "string"
-                        }
-                    ],
-                    "output": {
-                        "type": "string",
-                        "value": "[if(endsWith(parameters('originName'), '-func'), parameters('originName'), concat(parameters('originName'),'-func'))]"
-                    }
-                }
-            }
-        }
-    ],
-
     "resources": [
         {
             "apiVersion": "2018-11-01",
-            "name": "[hmcts.getAfName(parameters('afName'))]",
+            "name": "[parameters('afName')]",
             "type": "Microsoft.Web/sites",
             "kind": "[parameters('afKind')]",
             "location": "[parameters('afLocation')]",
@@ -157,7 +137,7 @@
                 "criticality": "[parameters('cTag_Criticality')]"
             },
             "properties": {
-                "name": "[hmcts.getAfName(parameters('afName'))]",
+                "name": "[parameters('afName')]",
                 "siteConfig": {
                     "appSettings": [
                         {
@@ -182,7 +162,7 @@
                         },
                         {
                             "name": "WEBSITE_CONTENTSHARE",
-                            "value": "[concat(toLower(hmcts.getAfName(parameters('afName'))), substring(parameters('afSubscriptionId'), 0, 3))]"
+                            "value": "[concat(toLower(parameters('afName')), substring(parameters('afSubscriptionId'), 0, 3))]"
                         }
                     ]
                 },

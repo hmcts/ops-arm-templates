@@ -25,6 +25,14 @@
             ],
             "type": "string"
         },
+        "afAssignedIdentity": {
+            "allowedValues": [
+                "None",
+                "SystemAssigned"
+            ],
+            "defaultValue": "None",
+            "type": "string"
+        },
         "afAiName": {
             "type": "string",
             "defaultValue": ""
@@ -145,6 +153,9 @@
             "name": "[hmcts.getAfName(parameters('afName'))]",
             "type": "Microsoft.Web/sites",
             "kind": "[parameters('afKind')]",
+            "identity": {
+                "type": "[parameters('afAssignedIdentity')]"
+            }, 
             "location": "[parameters('afLocation')]",
             "tags": {
                 "managedBy": "[parameters('cTag_ManagedBy')]",
@@ -192,5 +203,10 @@
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "system-assigned-identity": {
+            "type": "string",
+            "value": "[reference(concat('Microsoft.Web/sites/', hmcts.getAfName(parameters('afName'))), '2016-08-01', 'Full').identity.principalId]"
+        }
+    }
 }

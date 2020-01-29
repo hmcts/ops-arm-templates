@@ -5,7 +5,7 @@ Describe 'ARM template validation' {
     $template = ConvertFrom-Json -InputObject $rawContent -ErrorAction SilentlyContinue
     Context 'File validation' {
         It 'Template ARM file exists' {
-            Test-Path $here\template.json -Include '*.json' | Should -Be $true
+            Test-Path $here\template.json -Include '*.json' | Should -Be $True
         }
         It 'Is a valid JSON file' {
             $rawContent | ConvertFrom-Json -ErrorAction SilentlyContinue | Should -Not -Be $Null
@@ -15,6 +15,7 @@ Describe 'ARM template validation' {
         It "Contains all required elements" {
             $Elements = '$schema',
                 'contentVersion',
+                'functions',
                 'outputs',
                 'parameters',
                 'resources',
@@ -23,7 +24,27 @@ Describe 'ARM template validation' {
             $templateProperties | Should -Be $Elements
         }
         It "Creates the expected resources" {
-            $Element = 'Microsoft.Web/sites'
+            $Element = 'Microsoft.Resources/networkSecurityGroups'
+            $templateResources = $template.Resources.type
+            $templateResources | Should -Be $Element
+        }
+        It "Creates the expected resources" {
+            $Element = 'Microsoft.Network/routeTables'
+            $templateResources = $template.Resources.type
+            $templateResources | Should -Be $Element
+        }
+        It "Creates the expected resources" {
+            $Element = 'Microsoft.Network/routeTables/routes'
+            $templateResources = $template.Resources.type
+            $templateResources | Should -Be $Element
+        }
+        It "Creates the expected resources" {
+            $Element = 'Microsoft.Network/virtualNetworks'
+            $templateResources = $template.Resources.type
+            $templateResources | Should -Be $Element
+        }
+        It "Creates the expected resources" {
+            $Element = 'Microsoft.Network/virtualNetworks/subnets'
             $templateResources = $template.Resources.type
             $templateResources | Should -Be $Element
         }

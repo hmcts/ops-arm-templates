@@ -1,0 +1,229 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "lzrtName": {
+            "type": "string"
+        },
+        "lzvnName": {
+            "type": "string"
+        },
+        "lznsgName": {
+            "type": "string"
+        },
+        "lzLocation": {
+            "allowedValues":  [
+                "uksouth",
+                "ukwest"
+            ],
+            "type": "string"
+        },
+        "lzrtIP": {
+            "type": "string"
+        },
+        "lzrtHopIP": {
+            "type": "string"
+        },
+        "lzvnIP": {
+            "type": "string"
+        },
+        "lzvnmgmtsubnetIP": {
+            "type": "string"
+        },
+        "cTag_ManagedBy": {
+            "allowedValues": [
+                "DevOps"
+            ],
+            "type": "string"
+        },
+        "cTag_SolutionOwner": {
+            "allowedValues": [
+                "DTS"
+            ],
+            "type": "string"
+        },
+        "cTag_ActivityName": {
+            "allowedValues": [
+                "Cloud Management"
+            ],
+            "type": "string"
+        },
+        "cTag_DataClassification": {
+            "allowedValues": [
+                "internal",
+                "public",
+                "secret"
+            ],
+            "type": "string"
+        },
+        "cTag_Automation": {
+            "defaultValue": "{}",
+            "type": "string"
+        },
+        "cTag_CostCentre": {
+            "allowedValues": [
+                "10245117"
+            ],
+            "type": "string"
+        },
+        "cTag_Environment": {
+            "allowedValues": [
+                "sandbox",
+                "development",
+                "testing",
+                "ithc",
+                "production",
+                "staging",
+                "demo",
+                "management"
+            ],
+            "type": "string"
+        },
+        "cTag_Criticality": {
+            "allowedValues": [
+                "low",
+                "medium",
+                "high"
+            ],
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('lznsgName')]",
+            "location":"[parameters('lzLocation')]",
+            "tags": {
+                "cTag_ActivityName": "[parameters('cTag_ActivityName')]",
+                "cTag_Automation": "[parameters('cTag_Automation')]",
+                "cTag_CostCentre": "[parameters('cTag_CostCentre')]",
+                "cTag_DataClassification": "[parameters('cTag_DataClassification')]",
+                "cTag_ManagedBy": "[parameters('cTag_ManagedBy')]",
+                "cTag_SolutionOwner":"[parameters('cTag_SolutionOwner')]",
+                "cTag_Environment":"[parameters('cTag_Environment')]",
+                "cTag_Criticality":"[parameters('cTag_Criticality')]"
+            },
+            "properties": {
+                "securityRules": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('lzrtName')]",
+            "location": "[parameters('lzLocation')]",
+            "tags": {
+                "cTag_ActivityName": "[parameters('cTag_ActivityName')]",
+                "cTag_Automation": "[parameters('cTag_Automation')]",
+                "cTag_CostCentre": "[parameters('cTag_CostCentre')]",
+                "cTag_DataClassification": "[parameters('cTag_DataClassification')]",
+                "cTag_ManagedBy": "[parameters('cTag_ManagedBy')]",
+                "cTag_SolutionOwner":"[parameters('cTag_SolutionOwner')]",
+                "cTag_Environment":"[parameters('cTag_Environment')]",
+                "cTag_Criticality":"[parameters('cTag_Criticality')]"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": false,
+                "routes": [
+                    {
+                        "name": "internet-hub",
+                        "properties": {
+                            "addressPrefix": "[parameters('lzrtIP')]",
+                            "nextHopType": "VirtualAppliance",
+                            "nextHopIpAddress": "[parameters('lzrtHopIP')]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('lzrtName'), '/internet-hub')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/routeTables', parameters('lzrtName'))]"
+            ],
+            "properties": {
+                "addressPrefix": "[parameters('lzrtIP')]",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "[parameters('lzrtHopIP')]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('lzvnName')]",
+            "location": "[parameters('lzLocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('lznsgName'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('lzrtName'))]"
+            ],
+            "tags": {
+                "cTag_ActivityName": "[parameters('cTag_ActivityName')]",
+                "cTag_Automation": "[parameters('cTag_Automation')]",
+                "cTag_CostCentre": "[parameters('cTag_CostCentre')]",
+                "cTag_DataClassification": "[parameters('cTag_DataClassification')]",
+                "cTag_ManagedBy": "[parameters('cTag_ManagedBy')]",
+                "cTag_SolutionOwner":"[parameters('cTag_SolutionOwner')]",
+                "cTag_Environment":"[parameters('cTag_Environment')]",
+                "cTag_Criticality":"[parameters('cTag_Criticality')]"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('lzvnIP')]"
+                    ]
+                },
+                "dhcpOptions": {
+                    "dnsServers": []
+                },
+                "subnets": [
+                    {
+                        "name": "mgmtSubnet",
+                        "properties": {
+                            "addressPrefix": "[parameters('lzvnmgmtsubnetIP')]",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('lznsgName'))]"
+                            },
+                            "routeTable": {
+                                "id": "[resourceId('Microsoft.Network/routeTables', parameters('lzrtName'))]"
+                            },
+                            "serviceEndpoints": [],
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Enabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('lzvnName'), '/mgmtSubnet')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('lzvnName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('lznsgName'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('lzrtName'))]"
+            ],
+            "properties": {
+                "addressPrefix": "[parameters('lzvnmgmtsubnetIP')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('lznsgName'))]"
+                },
+                "routeTable": {
+                    "id": "[resourceId('Microsoft.Network/routeTables', parameters('lzrtName'))]"
+                },
+                "serviceEndpoints": [],
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Enabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        }
+    ]
+}

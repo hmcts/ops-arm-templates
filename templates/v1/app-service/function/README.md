@@ -14,9 +14,7 @@ be used when executing the template.
 | ------------------------ |:--------:| ------- |:---:|
 | afName                   | yes      | string  | no  |
 
-The name of the Application Service Plan when it is created. It has limited
-logic flow in the template so that if the App Function is not appended `-func`
-this will automatically be performed.
+The name of the Application Service Plan when it is created.
 
 ### afLocation
 
@@ -121,6 +119,15 @@ The Hosting Environment for the App Service Function. Has allowed values of
 
 The Managed Identity assignment for the App Service Function. How allowed values
 of `None` and `SystemAssigned`. Defaults to `None`.
+
+### afClientCertEnabled
+
+| Name                     | Required | Type    | AVs |
+| ------------------------ |:--------:| ------- |:---:|
+| afClientCertEnabled      | no       | bool    | na  |
+
+Should client certificates be required for this app service function to
+accept inbound connections. Has a default value of `false`.
 
 ### cTag_ManagedBy
 

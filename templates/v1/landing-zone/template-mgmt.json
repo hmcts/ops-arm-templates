@@ -1,0 +1,305 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "aiName": {
+            "type": "string"
+        },
+        "aiLocation": {
+            "allowedValues": [
+                "uksouth",
+                "ukwest"
+            ],
+            "defaultValue": "uksouth",
+            "type": "string"
+        },
+        "aiAppName": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "kvName": {
+            "type": "string"
+        },
+        "kvLocation": {
+            "allowedValues": [
+                "uksouth",
+                "ukwest"
+            ],
+            "defaultValue": "UK South",
+            "type": "string"
+        },
+        "kvTenant": {
+            "type": "string"
+        },
+        "kvEnabledForDeployment": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "kvEnabledForDiskEncryption": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "kvEnabledForTemplateDeployment": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "saName": {
+            "type": "string"
+        },
+        "saLocation": {
+            "allowedValues": [
+                "uksouth",
+                "ukwest"
+            ],
+            "defaultValue": "uksouth",
+            "type": "string"
+        },
+        "saAccountType": {
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_ZRS",
+                "Standard_GRS",
+                "Standard_RAGRS"
+            ],
+            "type": "string",
+            "defaultValue": "Standard_ZRS"
+        },
+        "saKind": {
+            "allowedValues": [
+                "StorageV2"
+            ],
+            "type": "string",
+            "defaultValue": "StorageV2"
+        },
+        "saAccessTier": {
+            "allowedValues": [
+                "Hot",
+                "Cool"
+            ],
+            "type": "string",
+            "defaultValue": "Cool"
+        },
+        "saSoftDelete": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "saSoftDeleteRetention": {
+            "type": "int",
+            "defaultValue": 7
+        },
+        "rsvName": {
+            "type": "string"
+        },
+        "wsName": {
+            "type": "string"
+        },
+        "cTag_ManagedBy": {
+            "allowedValues": [
+                "DevOps"
+            ],
+            "type": "string"
+        },
+        "cTag_SolutionOwner": {
+            "allowedValues": [
+                "DTS"
+            ],
+            "type": "string"
+        },
+        "cTag_ActivityName": {
+            "allowedValues": [
+                "Cloud Management"
+            ],
+            "type": "string"
+        },
+        "cTag_DataClassification": {
+            "allowedValues": [
+                "internal",
+                "public",
+                "secret"
+            ],
+            "type": "string"
+        },
+        "cTag_Automation": {
+            "defaultValue": "{}",
+            "type": "string"
+        },
+        "cTag_CostCentre": {
+            "allowedValues": [
+                "10245117"
+            ],
+            "type": "string"
+        },
+        "cTag_Environment": {
+            "allowedValues": [
+                "sandbox",
+                "development",
+                "testing",
+                "ithc",
+                "production",
+                "staging",
+                "demo",
+                "management"
+            ],
+            "type": "string"
+        },
+        "cTag_Criticality": {
+            "allowedValues": [
+                "low",
+                "medium",
+                "high"
+            ],
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "functions": [
+        {
+            "namespace": "hmcts",
+            "members": {
+                "getAiName": {
+                    "parameters": [
+                        {
+                            "name": "originName",
+                            "type": "string"
+                        }
+                    ],
+                    "output": {
+                        "type": "string",
+                        "value": "[[if(endsWith(parameters('originName'), '-ai'), parameters('originName'), concat(parameters('originName'),'-ai'))]"
+                    }
+                }
+            }
+        }
+    ],
+    "resources": [
+        {
+            "apiVersion": "2015-05-01",
+            "name": "[parameters('aiName')]",
+            "type": "Microsoft.Insights/components",
+            "location": "[parameters('aiLocation')]",
+            "tags": {
+                "managedBy": "[parameters('cTag_ManagedBy')]",
+                "solutionOwner": "[parameters('cTag_SolutionOwner')]",
+                "activityName": "[parameters('cTag_ActivityName')]",
+                "dataClassification": "[parameters('cTag_DataClassification')]",
+                "automation": "[parameters('cTag_Automation')]",
+                "costCentre": "[parameters('cTag_CostCentre')]",
+                "environment": "[parameters('cTag_Environment')]",
+                "criticality": "[parameters('cTag_Criticality')]"
+            },
+            "properties": {
+                "ApplicationId": "[parameters('aiAppName')]",
+                "Request_Source": "IbizaWebAppExtensionCreate"
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2016-10-01",
+            "name": "[parameters('kvName')]",
+            "location": "[parameters('kvLocation')]",
+            "tags": {
+                "managedBy": "[parameters('cTag_ManagedBy')]",
+                "solutionOwner": "[parameters('cTag_SolutionOwner')]",
+                "activityName": "[parameters('cTag_ActivityName')]",
+                "dataClassification": "[parameters('cTag_DataClassification')]",
+                "automation": "[parameters('cTag_Automation')]",
+                "costCentre": "[parameters('cTag_CostCentre')]",
+                "environment": "[parameters('cTag_Environment')]",
+                "criticality": "[parameters('cTag_Criticality')]"
+            },
+            "properties": {
+                "sku": {
+                    "family": "A",
+                    "name": "standard"
+                },
+                "tenantId": "[parameters('kvTenant')]",
+                "accessPolicies": [],
+                "enabledForDeployment": "[parameters('kvEnabledForDeployment')]",
+                "enabledForDiskEncryption": "[parameters('kvEnabledForDiskEncryption')]",
+                "enabledForTemplateDeployment": "[parameters('kvEnabledForTemplateDeployment')]"
+            }
+        },
+        {
+            "name": "[parameters('saName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "location": "[parameters('saLocation')]",
+            "properties": {
+                "accessTier": "[parameters('saAccessTier')]",
+                "supportsHttpsTrafficOnly": true
+            },
+            "dependsOn": [],
+            "sku": {
+                "name": "[parameters('saAccountType')]"
+            },
+            "kind": "[parameters('saKind')]",
+            "tags": {
+                "managedBy": "[parameters('cTag_ManagedBy')]",
+                "solutionOwner": "[parameters('cTag_SolutionOwner')]",
+                "activityName": "[parameters('cTag_ActivityName')]",
+                "dataClassification": "[parameters('cTag_DataClassification')]",
+                "automation": "[parameters('cTag_Automation')]",
+                "costCentre": "[parameters('cTag_CostCentre')]",
+                "environment": "[parameters('cTag_Environment')]",
+                "criticality": "[parameters('cTag_Criticality')]"
+            }
+        },
+        {
+            "name": "[concat(parameters('saName'), '/default')]",
+            "type": "microsoft.storage/storageaccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "properties": {
+                "deleteRetentionPolicy": {
+                    "enabled": "[parameters('saSoftDelete')]",
+                    "days": "[parameters('saSoftDeleteRetention')]"
+                }
+            },
+            "dependsOn": [
+                "[concat('microsoft.storage/storageaccounts/', parameters('saName'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.RecoveryServices/vaults",
+            "apiVersion": "2018-01-10",
+            "name": "[parameters('rsvName')]",
+            "location": "uksouth",
+            "tags": {
+                "managedBy": "[parameters('cTag_ManagedBy')]",
+                "solutionOwner": "[parameters('cTag_SolutionOwner')]",
+                "activityName": "[parameters('cTag_ActivityName')]",
+                "dataClassification": "[parameters('cTag_DataClassification')]",
+                "automation": "[parameters('cTag_Automation')]",
+                "costCentre": "[parameters('cTag_CostCentre')]",
+                "environment": "[parameters('cTag_Environment')]",
+                "criticality": "[parameters('cTag_Criticality')]"
+            },
+            "sku": {
+                "name": "Standard"
+            },
+            "properties": {}
+        },
+        {
+            "type": "microsoft.operationalinsights/workspaces",
+            "apiVersion": "2015-11-01-preview",
+            "name": "[parameters('wsName')]",
+            "location": "uksouth",
+            "tags":{
+                "managedBy": "[parameters('cTag_ManagedBy')]",
+                "solutionOwner": "[parameters('cTag_SolutionOwner')]",
+                "activityName": "[parameters('cTag_ActivityName')]",
+                "dataClassification": "[parameters('cTag_DataClassification')]",
+                "automation": "[parameters('cTag_Automation')]",
+                "costCentre": "[parameters('cTag_CostCentre')]",
+                "environment": "[parameters('cTag_Environment')]",
+                "criticality": "[parameters('cTag_Criticality')]"
+            },
+            "properties": {
+                "sku": {
+                    "name": "standalone"
+                },
+                "retentionInDays": 31
+            }
+        }
+    ],
+    "outputs": {}
+}

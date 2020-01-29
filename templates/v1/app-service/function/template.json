@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
         "afName": {
@@ -10,7 +10,7 @@
                 "uksouth",
                 "ukwest"
             ],
-            "defaultValue": "UK South",
+            "defaultValue": "uksouth",
             "type": "string"
         },
         "afResourceGroup": {
@@ -23,6 +23,14 @@
             "allowedValues": [
                 "functionapp"
             ],
+            "type": "string"
+        },
+        "afAssignedIdentity": {
+            "allowedValues": [
+                "None",
+                "SystemAssigned"
+            ],
+            "defaultValue": "None",
             "type": "string"
         },
         "afAiName": {
@@ -129,6 +137,9 @@
             "name": "[parameters('afName')]",
             "type": "Microsoft.Web/sites",
             "kind": "[parameters('afKind')]",
+            "identity": {
+                "type": "[parameters('afAssignedIdentity')]"
+            }, 
             "location": "[parameters('afLocation')]",
             "tags": {
                 "managedBy": "[parameters('cTag_ManagedBy')]",
@@ -178,5 +189,10 @@
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "system-assigned-identity": {
+            "type": "string",
+            "value": "[reference(concat('Microsoft.Web/sites/', hmcts.getAfName(parameters('afName'))), '2016-08-01', 'Full').identity.principalId]"
+        }
+    }
 }

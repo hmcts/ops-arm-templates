@@ -1,5 +1,5 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "saName": {
@@ -10,7 +10,7 @@
                 "uksouth",
                 "ukwest"
             ],
-            "defaultValue": "UK South",
+            "defaultValue": "uksouth",
             "type": "string"
         },
         "saAccountType": {
@@ -133,7 +133,7 @@
         },
         {
             "name": "[concat(parameters('saName'), '/default')]",
-            "type": "microsoft.storage/storageaccounts/blobServices",
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
             "apiVersion": "2019-06-01",
             "properties": {
                 "deleteRetentionPolicy": {

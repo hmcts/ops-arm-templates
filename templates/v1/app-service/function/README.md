@@ -111,6 +111,15 @@ The function runtime execution engine. Has allowed values of `powershell`.
 The Hosting Environment for the App Service Function. Has allowed values of
 `""`. Has a default value of `""`.
 
+### afAssignedIdentity
+
+| Name                     | Required | Type    | AVs |
+| ------------------------ |:--------:| ------- |:---:|
+| afAssignedIdentity       | no       | string  | yes |
+
+The Managed Identity assignment for the App Service Function. How allowed values
+of `None` and `SystemAssigned`. Defaults to `None`.
+
 ### afClientCertEnabled
 
 | Name                     | Required | Type    | AVs |

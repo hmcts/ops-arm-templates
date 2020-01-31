@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "cTag_ManagedBy": {
+            "value": "DevOps"
+        },
+        "cTag_SolutionOwner": {
+            "value": "Common Components (Rachel Hunt)"
+        },
+        "cTag_DataClassification": {
+            "value": "internal"
+        },
+        "cTag_CostCentre": {
+            "value": "10245117"
+        },
+        "cTag_ActivityName": {
+            "value": "Document Generation (Docmosis)"
+        }
+    }
+}

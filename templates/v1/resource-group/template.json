@@ -21,13 +21,15 @@
         },
         "cTag_SolutionOwner": {
             "allowedValues": [
-                "DTS"
+                "DTS",
+                "Common Components (Rachel Hunt)"
             ],
             "type": "string"
         },
         "cTag_ActivityName": {
             "allowedValues": [
-                "Cloud Management"
+                "Cloud Management",
+                "Document Generation (Docmosis)"
             ],
             "type": "string"
         },

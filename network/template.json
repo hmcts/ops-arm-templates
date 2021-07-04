@@ -1,0 +1,320 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "rtNameUkwest": {
+            "type": "String"
+        },
+        "vnNameUkwest": {
+            "type": "String"
+        },
+        "rtNameUksouth": {
+            "type": "String"
+        },
+        "vnNameUksouth": {
+            "type": "String"
+        },
+        "nsgNameUkwest": {
+            "type": "String"
+        },
+        "nsgNameUksouth": {
+            "type": "String"
+        },
+        "rgTag_ManagedBy": {
+            "allowedValues": [
+                "DevOps"
+            ],
+            "type": "string"
+        },
+        "rgTag_SolutionOwner": {
+            "allowedValues": [
+                "DTS"
+            ],
+            "type": "string"
+        },
+        "rgTag_rgTag_ActivityName": {
+            "allowedValues": [
+                "Cloud Management"
+            ],
+            "type": "string"
+        },
+        "rgTag_DataClassification": {
+            "allowedValues": [
+                "internal",
+                "public",
+                "secret"
+            ],
+            "type": "string"
+        },
+        "rgTag_Automation": {
+            "defaultValue": "{}",
+            "type": "string"
+        },
+        "rgTag_CostCentre": {
+            "allowedValues": [
+                "10245117"
+            ],
+            "type": "string"
+        },
+        "rgTag_Environment": {
+            "allowedValues": [
+                "sandbox",
+                "development",
+                "testing",
+                "ithc",
+                "production",
+                "staging",
+                "demo",
+                "management"
+            ],
+            "type": "string"
+        },
+        "rgTag_Criticality": {
+            "allowedValues": [
+                "low",
+                "medium",
+                "high"
+            ],
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('nsgNameUksouth')]",
+            "location": "uksouth",
+            "tags": {
+                "rgTag_rgTag_ActivityName": "parameters('rgTag_rgTag_ActivityName')]",
+                "rgTag_Automation": "parameters('rgTag_Automation')]",
+                "rgTag_CostCentre": "parameters('rgTag_CostCentre')]",
+                "rgTag_DataClassification": "parameters('rgTag_DataClassification')]",
+                "rgTag_ManagedBy": "parameters('rgTag_ManagedBy')]",
+                "rgTag_SolutionOwner":"[parameters('rgTag_SolutionOwner')]" 
+            },
+            "properties": {
+                "securityRules": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('nsgNameUkwest')]",
+            "location": "ukwest",
+            "tags": {
+                "rgTag_ActivityName": "parameters('rgTag_rgTag_ActivityName')]",
+                "rgTag_Automation": "parameters('rgTag_Automation')]",
+                "rgTag_CostCentre": "parameters('rgTag_CostCentre')]",
+                "rgTag_DataClassification": "parameters('rgTag_DataClassification')]",
+                "rgTag_ManagedBy": "parameters('rgTag_ManagedBy')]",
+                "rgTag_SolutionOwner":"[parameters('rgTag_SolutionOwner')]"
+            },
+            "properties": {
+                "securityRules": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('rtNameUksouth')]",
+            "location": "uksouth",
+            "tags": {
+                "rgTag_ActivityName": "parameters('rgTag_rgTag_ActivityName')]",
+                "rgTag_Automation": "parameters('rgTag_Automation')]",
+                "rgTag_CostCentre": "parameters('rgTag_CostCentre')]",
+                "rgTag_DataClassification": "parameters('rgTag_DataClassification')]",
+                "rgTag_ManagedBy": "parameters('rgTag_ManagedBy')]",
+                "rgTag_SolutionOwner":"[parameters('rgTag_SolutionOwner')]"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": false,
+                "routes": [
+                    {
+                        "name": "internet-hub",
+                        "properties": {
+                            "addressPrefix": "string",
+                            "nextHopType": "VirtualAppliance",
+                            "nextHopIpAddress": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('rtNameUkwest')]",
+            "location": "ukwest",
+            "tags": {
+                "rgTag_ActivityName": "parameters('rgTag_rgTag_ActivityName')]",
+                "rgTag_Automation": "parameters('rgTag_Automation')]",
+                "rgTag_CostCentre": "parameters('rgTag_CostCentre')]",
+                "rgTag_DataClassification": "parameters('rgTag_DataClassification')]",
+                "rgTag_ManagedBy": "parameters('rgTag_ManagedBy')]",
+                "rgTag_SolutionOwner":"[parameters('rgTag_SolutionOwner')]"
+            },
+            "properties": {
+                "disableBgpRoutePropagation": false,
+                "routes": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('rtNameUksouth'), '/internet-hub')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/routeTables', parameters('rtNameUksouth'))]"
+            ],
+            "properties": {
+                "addressPrefix": "string",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "string"
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('vnNameUksouth')]",
+            "location": "uksouth",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgNameUksouth'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('rtNameUksouth'))]"
+            ],
+            "tags": {
+                "rgTag_ActivityName": "parameters('rgTag_rgTag_ActivityName')]",
+                "rgTag_Automation": "parameters('rgTag_Automation')]",
+                "rgTag_CostCentre": "parameters('rgTag_CostCentre')]",
+                "rgTag_DataClassification": "parameters('rgTag_DataClassification')]",
+                "rgTag_ManagedBy": "parameters('rgTag_ManagedBy')]",
+                "rgTag_SolutionOwner":"[parameters('rgTag_SolutionOwner')]"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "string"
+                    ]
+                },
+                "dhcpOptions": {
+                    "dnsServers": []
+                },
+                "subnets": [
+                    {
+                        "name": "mgmtSubnet",
+                        "properties": {
+                            "addressPrefix": "string",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgNameUksouth'))]"
+                            },
+                            "routeTable": {
+                                "id": "[resourceId('Microsoft.Network/routeTables', parameters('rtNameUksouth'))]"
+                            },
+                            "serviceEndpoints": [],
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Enabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('vnNameUkwest')]",
+            "location": "ukwest",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgNameUkwest'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('rtNameUkwest'))]"
+            ],
+            "tags": {
+                "rgTag_ActivityName": "parameters('rgTag_rgTag_ActivityName')]",
+                "rgTag_Automation": "parameters('rgTag_Automation')]",
+                "rgTag_CostCentre": "parameters('rgTag_CostCentre')]",
+                "rgTag_DataClassification": "parameters('rgTag_DataClassification')]",
+                "rgTag_ManagedBy": "parameters('rgTag_ManagedBy')]",
+                "rgTag_SolutionOwner":"[parameters('rgTag_SolutionOwner')]"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "string"
+                    ]
+                },
+                "dhcpOptions": {
+                    "dnsServers": []
+                },
+                "subnets": [
+                    {
+                        "name": "mgmtSubnet",
+                        "properties": {
+                            "addressPrefix": "string",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgNameUkwest'))]"
+                            },
+                            "routeTable": {
+                                "id": "[resourceId('Microsoft.Network/routeTables', parameters('rtNameUkwest'))]"
+                            },
+                            "serviceEndpoints": [],
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Enabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('vnNameUksouth'), '/mgmtSubnet')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnNameUksouth'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgNameUksouth'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('rtNameUksouth'))]"
+            ],
+            "properties": {
+                "addressPrefix": "string",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgNameUksouth'))]"
+                },
+                "routeTable": {
+                    "id": "[resourceId('Microsoft.Network/routeTables', parameters('rtNameUksouth'))]"
+                },
+                "serviceEndpoints": [],
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Enabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('vnNameUkwest'), '/mgmtSubnet')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnNameUkwest'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgNameUkwest'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('rtNameUkwest'))]"
+            ],
+            "properties": {
+                "addressPrefix": "string",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgNameUkwest'))]"
+                },
+                "routeTable": {
+                    "id": "[resourceId('Microsoft.Network/routeTables', parameters('rtNameUkwest'))]"
+                },
+                "serviceEndpoints": [],
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Enabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        }
+    ]
+}
